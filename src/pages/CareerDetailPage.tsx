@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { getCareerDetail, CAREERS_DATABASE, INTEREST_CATEGORIES } from "@/data/careers";
+import { CareerColleges } from "@/components/careers/CareerColleges";
 import { 
   ArrowLeft, 
   ExternalLink, 
@@ -292,6 +293,13 @@ export default function CareerDetailPage() {
                   </a>
                 </CardContent>
               </Card>
+
+              {/* Career-Based College Recommendations */}
+              <CareerColleges 
+                careerId={career.id} 
+                careerTitle={career.title}
+                interests={career.interests}
+              />
             </div>
 
             {/* Sidebar */}

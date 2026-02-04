@@ -2,22 +2,16 @@ import { useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { 
   filterCareersByIntersection, 
-  applyPreferenceScoring, 
-  INTEREST_CATEGORIES,
-  type Career 
+  INTEREST_CATEGORIES
 } from "@/data/careers";
+import { CareerCard } from "@/components/careers/CareerCard";
+import { ZeroResultsFallback } from "@/components/careers/ZeroResultsFallback";
 import { 
   ArrowLeft, 
-  ArrowRight, 
-  TrendingUp, 
-  DollarSign, 
-  GraduationCap,
   Search,
   Filter
 } from "lucide-react";
@@ -39,14 +33,12 @@ export default function CareersPage() {
     INTEREST_CATEGORIES.find(cat => cat.id === id)?.label || id
   );
 
-  // Filter and score careers
-  const filteredCareers = useMemo(() => {
+  // Filter and score careers using strict intersection
+  const { filteredCareers, hasIntersectionResults } = useMemo(() => {
+    // First try strict intersection filtering
     let careers = filterCareersByIntersection(interests);
+    const hasResults = careers.length > 0;
     
-    if (workStyle || values || environment) {
-      careers = applyPreferenceScoring(careers, { workStyle, values, environment });
-    }
-
     // Apply search filter
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
@@ -57,8 +49,8 @@ export default function CareersPage() {
       );
     }
 
-    return careers;
-  }, [interests, workStyle, values, environment, searchQuery]);
+    return { filteredCareers: careers, hasIntersectionResults: hasResults };
+  }, [interests, searchQuery]);
 
   // Pagination
   const totalPages = Math.ceil(filteredCareers.length / ITEMS_PER_PAGE);
@@ -66,30 +58,6 @@ export default function CareersPage() {
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
   );
-
-  const getMatchBadges = (career: Career) => {
-    const badges = [];
-    
-    // Interest match badges
-    career.interests.forEach(interest => {
-      if (interests.includes(interest)) {
-        const category = INTEREST_CATEGORIES.find(c => c.id === interest);
-        if (category) {
-          badges.push({ label: category.label, type: "interest", icon: category.icon });
-        }
-      }
-    });
-
-    // Preference match badges
-    if (workStyle && career.preferences.workStyle.includes(workStyle)) {
-      badges.push({ label: `${workStyle} work`, type: "preference" });
-    }
-    if (values && career.preferences.values.includes(values)) {
-      badges.push({ label: values, type: "preference" });
-    }
-
-    return badges;
-  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -106,11 +74,23 @@ export default function CareersPage() {
               Career <span className="gradient-text">Exploration</span>
             </h1>
             <p className="text-lg text-muted-foreground mb-4">
-              Showing careers at the intersection of{" "}
-              <span className="font-semibold text-primary">{interestLabels.join(" & ")}</span>
+              {hasIntersectionResults ? (
+                <>
+                  Showing careers at the intersection of{" "}
+                  <span className="font-semibold text-primary">{interestLabels.join(" & ")}</span>
+                </>
+              ) : (
+                <>
+                  Exploring careers related to your interests:{" "}
+                  <span className="font-semibold text-primary">{interestLabels.join(" & ")}</span>
+                </>
+              )}
             </p>
             <p className="text-sm text-muted-foreground">
-              Found {filteredCareers.length} careers • This is for exploration only—career decisions are yours to make.
+              {hasIntersectionResults 
+                ? `Found ${filteredCareers.length} careers • This is for exploration only—career decisions are yours to make.`
+                : "This is for exploration only—career decisions are yours to make."
+              }
             </p>
           </div>
 
@@ -136,119 +116,77 @@ export default function CareersPage() {
             </div>
           </div>
 
-          {/* Career Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12">
-            {paginatedCareers.map((career, index) => {
-              const matchBadges = getMatchBadges(career);
-              return (
-                <Link key={career.id} to={`/career/${career.id}`}>
-                  <Card 
-                    variant="career" 
-                    className="h-full group animate-slide-up"
-                    style={{ animationDelay: `${index * 0.03}s` }}
-                  >
-                    <CardContent className="p-6">
-                      {/* Match Badges */}
-                      <div className="flex flex-wrap gap-1.5 mb-4">
-                        {matchBadges.slice(0, 3).map((badge, i) => (
-                          <Badge 
-                            key={i} 
-                            variant={badge.type === "interest" ? "default" : "secondary"}
-                            className="text-xs"
-                          >
-                            {badge.icon && <span className="mr-1">{badge.icon}</span>}
-                            {badge.label}
-                          </Badge>
-                        ))}
-                      </div>
-
-                      <h3 className="font-display font-semibold text-lg mb-2 group-hover:text-primary transition-colors">
-                        {career.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                        {career.description}
-                      </p>
-
-                      {/* Quick Stats */}
-                      <div className="grid grid-cols-3 gap-2 text-xs mb-4">
-                        <div className="flex items-center gap-1 text-muted-foreground">
-                          <TrendingUp className="h-3 w-3 text-brand-cyan" />
-                          <span>{career.demand}</span>
-                        </div>
-                        <div className="flex items-center gap-1 text-muted-foreground">
-                          <DollarSign className="h-3 w-3 text-brand-cyan" />
-                          <span className="truncate">{career.salaryRange.split("-")[0]}</span>
-                        </div>
-                        <div className="flex items-center gap-1 text-muted-foreground">
-                          <GraduationCap className="h-3 w-3 text-brand-purple" />
-                          <span className="truncate">Bachelor's+</span>
-                        </div>
-                      </div>
-
-                      {/* Tags */}
-                      <div className="flex flex-wrap gap-1">
-                        {career.tags.slice(0, 3).map(tag => (
-                          <span key={tag} className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-
-                      <div className="mt-4 flex items-center gap-1 text-primary opacity-0 group-hover:opacity-100 transition-opacity">
-                        <span className="text-sm font-medium">Learn More</span>
-                        <ArrowRight className="h-4 w-4" />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              );
-            })}
-          </div>
-
-          {/* Pagination */}
-          {totalPages > 1 && (
-            <div className="flex justify-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={currentPage === 1}
-                onClick={() => setCurrentPage(p => p - 1)}
-              >
-                Previous
-              </Button>
-              <div className="flex items-center gap-1">
-                {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                  let page: number;
-                  if (totalPages <= 5) {
-                    page = i + 1;
-                  } else if (currentPage <= 3) {
-                    page = i + 1;
-                  } else if (currentPage >= totalPages - 2) {
-                    page = totalPages - 4 + i;
-                  } else {
-                    page = currentPage - 2 + i;
-                  }
-                  return (
-                    <Button
-                      key={page}
-                      variant={currentPage === page ? "default" : "ghost"}
-                      size="sm"
-                      onClick={() => setCurrentPage(page)}
-                    >
-                      {page}
-                    </Button>
-                  );
-                })}
+          {/* Show Zero Results Fallback if no intersection results */}
+          {!hasIntersectionResults ? (
+            <ZeroResultsFallback
+              interests={interests}
+              workStyle={workStyle}
+              values={values}
+              environment={environment}
+              searchQuery={searchQuery}
+            />
+          ) : (
+            <>
+              {/* Career Grid */}
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12">
+                {paginatedCareers.map((career, index) => (
+                  <CareerCard
+                    key={career.id}
+                    career={career}
+                    selectedInterests={interests}
+                    workStyle={workStyle}
+                    values={values}
+                    index={index}
+                  />
+                ))}
               </div>
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={currentPage === totalPages}
-                onClick={() => setCurrentPage(p => p + 1)}
-              >
-                Next
-              </Button>
-            </div>
+
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="flex justify-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    disabled={currentPage === 1}
+                    onClick={() => setCurrentPage(p => p - 1)}
+                  >
+                    Previous
+                  </Button>
+                  <div className="flex items-center gap-1">
+                    {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                      let page: number;
+                      if (totalPages <= 5) {
+                        page = i + 1;
+                      } else if (currentPage <= 3) {
+                        page = i + 1;
+                      } else if (currentPage >= totalPages - 2) {
+                        page = totalPages - 4 + i;
+                      } else {
+                        page = currentPage - 2 + i;
+                      }
+                      return (
+                        <Button
+                          key={page}
+                          variant={currentPage === page ? "default" : "ghost"}
+                          size="sm"
+                          onClick={() => setCurrentPage(page)}
+                        >
+                          {page}
+                        </Button>
+                      );
+                    })}
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    disabled={currentPage === totalPages}
+                    onClick={() => setCurrentPage(p => p + 1)}
+                  >
+                    Next
+                  </Button>
+                </div>
+              )}
+            </>
           )}
         </div>
       </main>
