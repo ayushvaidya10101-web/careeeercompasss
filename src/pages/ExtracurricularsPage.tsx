@@ -11,15 +11,31 @@ import {
   getExtracurricularsByCategory,
   type Extracurricular 
 } from "@/data/extracurriculars";
+import { EXTENDED_EXTRACURRICULARS } from "@/data/extendedExtracurriculars";
 import { Award, ArrowRight, Sparkles, Target, ChevronDown, ChevronUp } from "lucide-react";
+import { useLocalPreferences } from "@/hooks/useLocalPreferences";
+import { AuthModal } from "@/components/auth/AuthModal";
+import { useAuth } from "@/hooks/useAuth";
 
-function ExtracurricularCard({ activity }: { activity: Extracurricular }) {
+// Combine all extracurriculars
+const ALL_EXTRACURRICULARS = [...EXTRACURRICULARS, ...EXTENDED_EXTRACURRICULARS];
+
+function ExtracurricularCard({ 
+  activity, 
+  onActivityClick 
+}: { 
+  activity: Extracurricular;
+  onActivityClick: (id: string) => void;
+}) {
   const [expanded, setExpanded] = useState(false);
 
   return (
     <Card variant="elevated" className="h-full">
       <CardContent className="p-6">
-        <div className="flex items-start gap-4 mb-4">
+        <div 
+          className="flex items-start gap-4 mb-4 cursor-pointer" 
+          onClick={() => onActivityClick(activity.id)}
+        >
           <div className="text-3xl">{activity.icon}</div>
           <div className="flex-1">
             <h3 className="font-display font-semibold text-lg mb-1">{activity.name}</h3>
@@ -58,7 +74,7 @@ function ExtracurricularCard({ activity }: { activity: Extracurricular }) {
               {activity.careerConnections.map(connection => (
                 <Link 
                   key={connection.careerId}
-                  to={`/career/${connection.careerId}`}
+                  to={`/careers/${connection.careerId}`}
                   className="block p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors group"
                 >
                   <div className="flex items-center justify-between mb-1">
@@ -80,10 +96,21 @@ function ExtracurricularCard({ activity }: { activity: Extracurricular }) {
 
 export default function ExtracurricularsPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const { addClickedExtracurricular } = useLocalPreferences();
+  const { isAuthenticated } = useAuth();
+
+  const handleActivityClick = (activityId: string) => {
+    addClickedExtracurricular(activityId);
+    // Optionally prompt for auth on first interaction
+    if (!isAuthenticated) {
+      // Could show auth modal here, but keeping it optional
+    }
+  };
 
   const displayedActivities = selectedCategory 
-    ? getExtracurricularsByCategory(selectedCategory)
-    : EXTRACURRICULARS;
+    ? ALL_EXTRACURRICULARS.filter(e => e.category === selectedCategory)
+    : ALL_EXTRACURRICULARS;
 
   return (
     <div className="min-h-screen bg-background">
@@ -103,6 +130,9 @@ export default function ExtracurricularsPage() {
               Discover how your extracurricular activities can strengthen your path to various careers.
               Every activity builds valuable skills.
             </p>
+            <p className="text-sm text-muted-foreground mt-3">
+              {ALL_EXTRACURRICULARS.length} activities across {EXTRACURRICULAR_CATEGORIES.length} categories
+            </p>
           </div>
 
           {/* Category Filter */}
@@ -112,20 +142,23 @@ export default function ExtracurricularsPage() {
               size="sm"
               onClick={() => setSelectedCategory(null)}
             >
-              All Activities
+              All Activities ({ALL_EXTRACURRICULARS.length})
             </Button>
-            {EXTRACURRICULAR_CATEGORIES.map(cat => (
-              <Button
-                key={cat.id}
-                variant={selectedCategory === cat.id ? "default" : "outline"}
-                size="sm"
-                onClick={() => setSelectedCategory(cat.id)}
-                className="gap-1.5"
-              >
-                <span>{cat.icon}</span>
-                {cat.label}
-              </Button>
-            ))}
+            {EXTRACURRICULAR_CATEGORIES.map(cat => {
+              const count = ALL_EXTRACURRICULARS.filter(e => e.category === cat.id).length;
+              return (
+                <Button
+                  key={cat.id}
+                  variant={selectedCategory === cat.id ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setSelectedCategory(cat.id)}
+                  className="gap-1.5"
+                >
+                  <span>{cat.icon}</span>
+                  {cat.label} ({count})
+                </Button>
+              );
+            })}
           </div>
 
           {/* Activities Grid */}
@@ -134,9 +167,12 @@ export default function ExtracurricularsPage() {
               <div 
                 key={activity.id}
                 className="animate-slide-up"
-                style={{ animationDelay: `${index * 0.03}s` }}
+                style={{ animationDelay: `${index * 0.02}s` }}
               >
-                <ExtracurricularCard activity={activity} />
+                <ExtracurricularCard 
+                  activity={activity} 
+                  onActivityClick={handleActivityClick}
+                />
               </div>
             ))}
           </div>
@@ -157,12 +193,16 @@ export default function ExtracurricularsPage() {
                   and missing activities doesn't prevent you from pursuing any career. Use this as inspiration,
                   not prescription.
                 </p>
+                <p className="text-xs text-muted-foreground/70">
+                  Sources: Crimson Education extracurricular activities research • All information is for educational exploration only
+                </p>
               </CardContent>
             </Card>
           </div>
         </div>
       </main>
       <Footer />
+      <AuthModal open={authModalOpen} onOpenChange={setAuthModalOpen} />
     </div>
   );
 }
