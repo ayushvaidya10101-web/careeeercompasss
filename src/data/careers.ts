@@ -781,27 +781,62 @@ export function filterCareersByIntersection(interests: string[]): Career[] {
   return combined.sort((a, b) => b.relevanceScore - a.relevanceScore);
 }
 
-// Apply preference scoring to careers
+// Apply preference scoring to careers with improved precision
 export function applyPreferenceScoring(
   careers: Career[],
   preferences: { workStyle?: string; values?: string; environment?: string }
 ): Career[] {
   return careers.map(career => {
     let bonusScore = 0;
+    let matchCount = 0;
     
+    // Exact preference match gets highest priority
     if (preferences.workStyle && career.preferences.workStyle.includes(preferences.workStyle)) {
-      bonusScore += 10;
+      bonusScore += 15;
+      matchCount++;
     }
     if (preferences.values && career.preferences.values.includes(preferences.values)) {
-      bonusScore += 10;
+      bonusScore += 15;
+      matchCount++;
     }
     if (preferences.environment && career.preferences.environment.includes(preferences.environment)) {
-      bonusScore += 5;
+      bonusScore += 10;
+      matchCount++;
     }
+    
+    // Bonus for matching multiple preferences
+    if (matchCount >= 2) bonusScore += 10;
+    if (matchCount === 3) bonusScore += 15;
     
     return {
       ...career,
-      relevanceScore: career.relevanceScore + bonusScore
+      relevanceScore: career.relevanceScore + bonusScore,
+      preferenceMatchCount: matchCount
     };
-  }).sort((a, b) => b.relevanceScore - a.relevanceScore);
+  }).sort((a, b) => {
+    // Sort by preference match count first, then relevance score
+    const aMatch = (a as any).preferenceMatchCount || 0;
+    const bMatch = (b as any).preferenceMatchCount || 0;
+    if (bMatch !== aMatch) return bMatch - aMatch;
+    return b.relevanceScore - a.relevanceScore;
+  });
+}
+
+// Get all careers including extended database
+export function getAllCareers(): Career[] {
+  // Import extended careers dynamically to avoid circular deps
+  const { EXTENDED_CAREERS } = require('./extendedCareers');
+  return [...CAREERS_DATABASE, ...EXTENDED_CAREERS];
+}
+
+// Search careers across entire database
+export function searchCareers(query: string): Career[] {
+  const allCareers = getAllCareers();
+  const lowerQuery = query.toLowerCase();
+  
+  return allCareers.filter(career =>
+    career.title.toLowerCase().includes(lowerQuery) ||
+    career.description.toLowerCase().includes(lowerQuery) ||
+    career.tags.some(tag => tag.toLowerCase().includes(lowerQuery))
+  ).sort((a, b) => b.relevanceScore - a.relevanceScore);
 }

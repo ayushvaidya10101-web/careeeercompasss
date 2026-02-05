@@ -1,11 +1,25 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { TOP_COUNTRIES } from "@/data/colleges";
-import { GraduationCap, Globe, Menu, X, BookOpen, Award } from "lucide-react";
+import { GraduationCap, Globe, Menu, X, BookOpen, Award, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
+import { AuthModal } from "@/components/auth/AuthModal";
+import { toast } from "sonner";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const { user, signOut, isAuthenticated } = useAuth();
+
+  const handleSignOut = async () => {
+    const { error } = await signOut();
+    if (error) {
+      toast.error("Failed to sign out");
+    } else {
+      toast.success("Signed out successfully");
+    }
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
@@ -14,7 +28,7 @@ export function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 text-xl font-display font-bold">
             <GraduationCap className="h-7 w-7 text-primary" />
-            <span className="gradient-text">CareerPath</span>
+            <span className="gradient-text">Career Compass</span>
           </Link>
           
           {/* Desktop Navigation */}
@@ -32,6 +46,28 @@ export function Header() {
                 Explore Colleges
               </Button>
             </Link>
+
+            {/* Auth Button */}
+            {isAuthenticated ? (
+              <div className="flex items-center gap-2 ml-2">
+                <span className="text-sm text-muted-foreground">
+                  {user?.email?.split('@')[0]}
+                </span>
+                <Button variant="ghost" size="sm" onClick={handleSignOut}>
+                  Sign Out
+                </Button>
+              </div>
+            ) : (
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="gap-2 ml-2"
+                onClick={() => setAuthModalOpen(true)}
+              >
+                <User className="h-4 w-4" />
+                Sign In
+              </Button>
+            )}
             
             {/* Country Quick Links */}
             <div className="hidden xl:flex items-center gap-2 ml-4 pl-4 border-l border-border">
@@ -84,6 +120,32 @@ export function Header() {
                 <BookOpen className="h-5 w-5" />
                 Explore Careers
               </Link>
+
+              {/* Auth for Mobile */}
+              {isAuthenticated ? (
+                <button
+                  onClick={() => {
+                    handleSignOut();
+                    setMobileMenuOpen(false);
+                  }}
+                  className="flex items-center gap-2 px-4 py-3 rounded-lg hover:bg-muted text-left"
+                >
+                  <User className="h-5 w-5" />
+                  Sign Out ({user?.email?.split('@')[0]})
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    setAuthModalOpen(true);
+                    setMobileMenuOpen(false);
+                  }}
+                  className="flex items-center gap-2 px-4 py-3 rounded-lg hover:bg-muted text-left"
+                >
+                  <User className="h-5 w-5" />
+                  Sign In
+                </button>
+              )}
+
               <div className="mt-4 pt-4 border-t border-border">
                 <p className="px-4 text-sm text-muted-foreground mb-3">Top Countries</p>
                 <div className="flex flex-wrap gap-2 px-4">
@@ -104,6 +166,9 @@ export function Header() {
           </div>
         )}
       </div>
+
+      {/* Auth Modal */}
+      <AuthModal open={authModalOpen} onOpenChange={setAuthModalOpen} />
     </header>
   );
 }
