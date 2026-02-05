@@ -4,7 +4,6 @@ import { HeroSection } from "@/components/landing/HeroSection";
 import { ProblemSection } from "@/components/landing/ProblemSection";
 import { NeutralitySection } from "@/components/landing/NeutralitySection";
 import { CollegesWorldSection } from "@/components/landing/CollegesWorldSection";
-import { GlobalSearch } from "@/components/search/GlobalSearch";
 
 const Index = () => {
   return (
@@ -19,7 +18,6 @@ const Index = () => {
         <CollegesWorldSection />
       </main>
       <Footer />
-      <GlobalSearch />
     </div>
   );
 };

@@ -74,7 +74,7 @@ function ExtracurricularCard({
               {activity.careerConnections.map(connection => (
                 <Link 
                   key={connection.careerId}
-                  to={`/careers/${connection.careerId}`}
+                  to={`/career/${connection.careerId}`}
                   className="block p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors group"
                 >
                   <div className="flex items-center justify-between mb-1">
