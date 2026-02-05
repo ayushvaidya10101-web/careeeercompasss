@@ -5,6 +5,7 @@ import { GraduationCap, Globe, Menu, X, BookOpen, Award, User } from "lucide-rea
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { AuthModal } from "@/components/auth/AuthModal";
+import { HeaderSearch } from "@/components/search/HeaderSearch";
 import { toast } from "sonner";
 
 export function Header() {
@@ -33,6 +34,9 @@ export function Header() {
           
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-4">
+            {/* Global Search */}
+            <HeaderSearch />
+            
             {/* Primary Action Buttons */}
             <Link to="/extracurriculars">
               <Button variant="ghost" size="sm" className="gap-2">

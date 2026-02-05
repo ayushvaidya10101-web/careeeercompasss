@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Search, X, GraduationCap, Briefcase, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { CAREERS_DATABASE } from '@/data/careers';
+import { getAllCareers } from '@/data/careers';
 import { COLLEGES_DATABASE } from '@/data/colleges';
 import { cn } from '@/lib/utils';
 
@@ -15,12 +15,13 @@ interface SearchResult {
   url: string;
 }
 
-export function GlobalSearch() {
+export function HeaderSearch() {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
   // Memoized search results
@@ -29,9 +30,10 @@ export function GlobalSearch() {
 
     const lowerQuery = query.toLowerCase();
     const matches: SearchResult[] = [];
+    const allCareers = getAllCareers();
 
     // Search careers
-    CAREERS_DATABASE.forEach(career => {
+    allCareers.forEach(career => {
       if (
         career.title.toLowerCase().includes(lowerQuery) ||
         career.description.toLowerCase().includes(lowerQuery) ||
@@ -42,7 +44,7 @@ export function GlobalSearch() {
           id: career.id,
           title: career.title,
           subtitle: career.description.slice(0, 60) + '...',
-          url: `/careers/${career.id}`,
+          url: `/career/${career.id}`,
         });
       }
     });
@@ -78,16 +80,29 @@ export function GlobalSearch() {
     }
   }, [isOpen]);
 
+  // Close on outside click
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (!isOpen) {
-        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-          e.preventDefault();
-          setIsOpen(true);
-        }
+      // Cmd/Ctrl + K to open
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setIsOpen(true);
         return;
       }
+
+      if (!isOpen) return;
 
       switch (e.key) {
         case 'ArrowDown':
@@ -124,81 +139,87 @@ export function GlobalSearch() {
   };
 
   return (
-    <>
-      {/* Floating Search Button */}
-      <Button
-        variant="outline"
-        size="icon"
+    <div ref={containerRef} className="relative">
+      {/* Search Button/Input */}
+      <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 z-40 h-14 w-14 rounded-full shadow-lg bg-primary text-primary-foreground hover:bg-primary/90 border-0"
+        className={cn(
+          "flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border bg-muted/50 hover:bg-muted transition-colors text-sm text-muted-foreground",
+          isOpen && "hidden"
+        )}
       >
-        <Search className="h-6 w-6" />
-      </Button>
+        <Search className="h-4 w-4" />
+        <span className="hidden sm:inline">Search...</span>
+        <kbd className="hidden md:inline-flex h-5 select-none items-center gap-1 rounded border bg-background px-1.5 font-mono text-[10px] font-medium">
+          <span className="text-xs">⌘</span>K
+        </kbd>
+      </button>
 
-      {/* Search Modal */}
+      {/* Expanded Search */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh]">
-          {/* Backdrop */}
-          <div 
-            className="absolute inset-0 bg-background/80 backdrop-blur-sm"
-            onClick={() => {
-              setIsOpen(false);
-              setQuery('');
-            }}
-          />
-
-          {/* Search Container */}
-          <div className="relative w-full max-w-xl mx-4 bg-card border border-border rounded-xl shadow-2xl overflow-hidden">
+        <div className="absolute top-0 right-0 w-[320px] sm:w-[400px] z-50">
+          <div className="bg-card border border-border rounded-lg shadow-lg overflow-hidden">
             {/* Search Input */}
-            <div className="flex items-center gap-3 px-4 border-b border-border">
-              <Search className="h-5 w-5 text-muted-foreground flex-shrink-0" />
+            <div className="flex items-center gap-2 px-3 border-b border-border">
+              <Search className="h-4 w-4 text-muted-foreground flex-shrink-0" />
               <Input
                 ref={inputRef}
                 type="text"
                 placeholder="Search careers or colleges..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className="border-0 focus-visible:ring-0 text-lg py-4 px-0"
+                className="border-0 focus-visible:ring-0 text-sm py-2.5 px-0 h-10"
               />
               {query && (
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-8 w-8"
+                  className="h-6 w-6"
                   onClick={() => setQuery('')}
                 >
-                  <X className="h-4 w-4" />
+                  <X className="h-3 w-3" />
                 </Button>
               )}
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-6 w-6"
+                onClick={() => {
+                  setIsOpen(false);
+                  setQuery('');
+                }}
+              >
+                <X className="h-4 w-4" />
+              </Button>
             </div>
 
             {/* Results */}
             {results.length > 0 && (
-              <div className="max-h-80 overflow-y-auto p-2">
+              <div className="max-h-64 overflow-y-auto p-1.5">
                 {results.map((result, index) => (
                   <button
                     key={`${result.type}-${result.id}`}
                     onClick={() => handleResultClick(result)}
                     className={cn(
-                      "w-full flex items-center gap-3 px-3 py-3 rounded-lg text-left transition-colors",
+                      "w-full flex items-center gap-2.5 px-2.5 py-2 rounded-md text-left transition-colors",
                       index === selectedIndex ? "bg-primary/10" : "hover:bg-muted"
                     )}
                   >
                     <div className={cn(
-                      "flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center",
+                      "flex-shrink-0 w-8 h-8 rounded-md flex items-center justify-center",
                       result.type === 'career' ? "bg-primary/10" : "bg-accent/10"
                     )}>
                       {result.type === 'career' ? (
-                        <Briefcase className="h-5 w-5 text-primary" />
+                        <Briefcase className="h-4 w-4 text-primary" />
                       ) : (
-                        <GraduationCap className="h-5 w-5 text-accent" />
+                        <GraduationCap className="h-4 w-4 text-accent" />
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium truncate">{result.title}</p>
-                      <p className="text-sm text-muted-foreground truncate">{result.subtitle}</p>
+                      <p className="font-medium text-sm truncate">{result.title}</p>
+                      <p className="text-xs text-muted-foreground truncate">{result.subtitle}</p>
                     </div>
-                    <ArrowRight className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                    <ArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
                   </button>
                 ))}
               </div>
@@ -206,25 +227,25 @@ export function GlobalSearch() {
 
             {/* Empty State */}
             {query && results.length === 0 && (
-              <div className="p-8 text-center">
-                <p className="text-muted-foreground">No results found for "{query}"</p>
+              <div className="p-4 text-center">
+                <p className="text-sm text-muted-foreground">No results for "{query}"</p>
               </div>
             )}
 
             {/* Keyboard Hints */}
             {!query && (
-              <div className="p-4 text-center text-sm text-muted-foreground">
-                <p>Type to search for careers or colleges</p>
-                <p className="mt-1 text-xs">
-                  Press <kbd className="px-1.5 py-0.5 bg-muted rounded">↑</kbd>{' '}
-                  <kbd className="px-1.5 py-0.5 bg-muted rounded">↓</kbd> to navigate,{' '}
-                  <kbd className="px-1.5 py-0.5 bg-muted rounded">Enter</kbd> to select
+              <div className="p-3 text-center border-t border-border">
+                <p className="text-xs text-muted-foreground">
+                  <kbd className="px-1 py-0.5 bg-muted rounded text-[10px]">↑</kbd>{' '}
+                  <kbd className="px-1 py-0.5 bg-muted rounded text-[10px]">↓</kbd> navigate,{' '}
+                  <kbd className="px-1 py-0.5 bg-muted rounded text-[10px]">Enter</kbd> select,{' '}
+                  <kbd className="px-1 py-0.5 bg-muted rounded text-[10px]">Esc</kbd> close
                 </p>
               </div>
             )}
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

@@ -822,11 +822,12 @@ export function applyPreferenceScoring(
   });
 }
 
-// Get all careers including extended database
+// Get all careers including extended database and emerging careers
 export function getAllCareers(): Career[] {
   // Import extended careers dynamically to avoid circular deps
   const { EXTENDED_CAREERS } = require('./extendedCareers');
-  return [...CAREERS_DATABASE, ...EXTENDED_CAREERS];
+  const { EMERGING_CAREERS } = require('./emergingCareers');
+  return [...CAREERS_DATABASE, ...EXTENDED_CAREERS, ...EMERGING_CAREERS];
 }
 
 // Search careers across entire database

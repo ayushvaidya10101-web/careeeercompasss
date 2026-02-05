@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -7,6 +8,8 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { getCareerDetail, CAREERS_DATABASE, INTEREST_CATEGORIES } from "@/data/careers";
 import { CareerColleges } from "@/components/careers/CareerColleges";
+import { AuthModal } from "@/components/auth/AuthModal";
+import { useAuth } from "@/hooks/useAuth";
 import { 
   ArrowLeft, 
   ExternalLink, 
@@ -21,12 +24,15 @@ import {
   BookOpen,
   Lightbulb,
   Users,
-  FileText
+  FileText,
+  Lock
 } from "lucide-react";
 
 export default function CareerDetailPage() {
   const { careerId } = useParams<{ careerId: string }>();
   const career = careerId ? getCareerDetail(careerId) : null;
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const { isAuthenticated, loading } = useAuth();
 
   if (!career) {
     return (
@@ -41,6 +47,71 @@ export default function CareerDetailPage() {
           </div>
         </main>
         <Footer />
+      </div>
+    );
+  }
+
+  // Show auth gate if not authenticated
+  if (!loading && !isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Header />
+        <main className="pt-24 pb-16">
+          <div className="container mx-auto px-4">
+            <Link to="/careers" className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary mb-8">
+              <ArrowLeft className="h-4 w-4" />
+              Back to Careers
+            </Link>
+
+            {/* Hero Preview Section */}
+            <div className="max-w-4xl mx-auto mb-12">
+              <div className="flex flex-wrap gap-2 mb-4">
+                {career.interests.map(interestId => {
+                  const cat = INTEREST_CATEGORIES.find(c => c.id === interestId);
+                  return cat && (
+                    <Badge key={cat.id} variant="default" className="text-sm">
+                      {cat.icon} {cat.label}
+                    </Badge>
+                  );
+                })}
+              </div>
+              <h1 className="font-display text-4xl md:text-5xl font-bold mb-4">
+                {career.title}
+              </h1>
+              <p className="text-xl text-muted-foreground mb-6">
+                {career.overview}
+              </p>
+            </div>
+
+            {/* Auth Gate */}
+            <Card className="max-w-lg mx-auto text-center">
+              <CardContent className="p-8">
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Lock className="h-8 w-8 text-primary" />
+                </div>
+                <h2 className="font-display text-2xl font-bold mb-3">
+                  Sign in to View Full Details
+                </h2>
+                <p className="text-muted-foreground mb-6">
+                  Create a free account or sign in to access complete career information, 
+                  roadmaps, salary data, and personalized recommendations.
+                </p>
+                <Button 
+                  size="lg" 
+                  className="w-full"
+                  onClick={() => setAuthModalOpen(true)}
+                >
+                  Sign In to Continue
+                </Button>
+                <p className="text-xs text-muted-foreground mt-4">
+                  Free forever. No credit card required.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </main>
+        <Footer />
+        <AuthModal open={authModalOpen} onOpenChange={setAuthModalOpen} />
       </div>
     );
   }
