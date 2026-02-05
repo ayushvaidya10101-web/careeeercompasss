@@ -3,6 +3,10 @@
 
 import { EXTENDED_CAREERS } from './extendedCareers';
 import { EMERGING_CAREERS } from './emergingCareers';
+import { MEDICAL_CAREERS } from './medicalCareers';
+import { ENGINEERING_CAREERS } from './engineeringCareers';
+import { BUSINESS_CAREERS } from './businessCareers';
+import { VOCATIONAL_CAREERS } from './vocationalCareers';
 export interface Career {
   id: string;
   title: string;
@@ -824,9 +828,17 @@ export function applyPreferenceScoring(
   });
 }
 
-// Get all careers including extended database and emerging careers
+// Get all careers including all career databases
 export function getAllCareers(): Career[] {
-  return [...CAREERS_DATABASE, ...EXTENDED_CAREERS, ...EMERGING_CAREERS];
+  return [
+    ...CAREERS_DATABASE,
+    ...EXTENDED_CAREERS,
+    ...EMERGING_CAREERS,
+    ...MEDICAL_CAREERS,
+    ...ENGINEERING_CAREERS,
+    ...BUSINESS_CAREERS,
+    ...VOCATIONAL_CAREERS
+  ];
 }
 
 // Search careers across entire database
