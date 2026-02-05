@@ -1,6 +1,8 @@
 // Pre-indexed career data for fast filtering and matching
 // This data structure is optimized for intersection-based filtering
 
+import { EXTENDED_CAREERS } from './extendedCareers';
+import { EMERGING_CAREERS } from './emergingCareers';
 export interface Career {
   id: string;
   title: string;
@@ -824,9 +826,6 @@ export function applyPreferenceScoring(
 
 // Get all careers including extended database and emerging careers
 export function getAllCareers(): Career[] {
-  // Import extended careers dynamically to avoid circular deps
-  const { EXTENDED_CAREERS } = require('./extendedCareers');
-  const { EMERGING_CAREERS } = require('./emergingCareers');
   return [...CAREERS_DATABASE, ...EXTENDED_CAREERS, ...EMERGING_CAREERS];
 }
 
