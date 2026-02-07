@@ -1,5 +1,6 @@
 // QS World University Rankings data - sourced from TopUniversities.com
 // Rankings are accurate as of QS World University Rankings 2024
+import { applyMetricsToAll } from './collegeMetrics';
 
 export interface College {
   id: string;
@@ -2889,17 +2890,18 @@ function getIndianCollegesFromData(): College[] {
   ];
 }
 
-// Get colleges by country including India
+// Get colleges by country including India (with QS metrics)
 export function getCollegesByCountryEnhanced(countryId: string): College[] {
   if (countryId === 'india') {
     return getIndianCollegesFromData().sort((a, b) => a.qsRank - b.qsRank);
   }
-  return COLLEGES_DATABASE
-    .filter(college => college.country === countryId)
-    .sort((a, b) => a.qsRank - b.qsRank);
+  const colleges = COLLEGES_DATABASE
+    .filter(college => college.country === countryId);
+  return applyMetricsToAll(colleges).sort((a, b) => a.qsRank - b.qsRank);
 }
 
-// Get all colleges including India
+// Get all colleges including India (with QS metrics)
 export function getAllColleges(): College[] {
-  return [...COLLEGES_DATABASE, ...getIndianCollegesFromData()].sort((a, b) => a.qsRank - b.qsRank);
+  const enhanced = applyMetricsToAll(COLLEGES_DATABASE);
+  return [...enhanced, ...getIndianCollegesFromData()].sort((a, b) => a.qsRank - b.qsRank);
 }

@@ -12,13 +12,14 @@ import {
   type Extracurricular 
 } from "@/data/extracurriculars";
 import { EXTENDED_EXTRACURRICULARS } from "@/data/extendedExtracurriculars";
+import { ADDITIONAL_EXTRACURRICULARS } from "@/data/additionalExtracurriculars";
 import { Award, ArrowRight, Sparkles, Target, ChevronDown, ChevronUp } from "lucide-react";
 import { useLocalPreferences } from "@/hooks/useLocalPreferences";
 import { AuthModal } from "@/components/auth/AuthModal";
 import { useAuth } from "@/hooks/useAuth";
 
 // Combine all extracurriculars
-const ALL_EXTRACURRICULARS = [...EXTRACURRICULARS, ...EXTENDED_EXTRACURRICULARS];
+const ALL_EXTRACURRICULARS = [...EXTRACURRICULARS, ...EXTENDED_EXTRACURRICULARS, ...ADDITIONAL_EXTRACURRICULARS];
 
 function ExtracurricularCard({ 
   activity, 

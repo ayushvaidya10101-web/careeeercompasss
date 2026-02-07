@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -10,6 +10,8 @@ import {
 } from "@/data/careers";
 import { CareerCard } from "@/components/careers/CareerCard";
 import { ZeroResultsFallback } from "@/components/careers/ZeroResultsFallback";
+import { AISuggestionsSection } from "@/components/careers/AISuggestionsSection";
+import { useAICareerSuggestions } from "@/hooks/useAICareerSuggestions";
 import { 
   ArrowLeft, 
   Search,
@@ -27,6 +29,8 @@ export default function CareersPage() {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+
+  const { suggestions, isLoading: aiLoading, error: aiError, fetchSuggestions, hasFetched } = useAICareerSuggestions();
 
   // Get interest labels for display
   const interestLabels = interests.map(id => 
@@ -58,6 +62,17 @@ export default function CareersPage() {
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
   );
+
+  const handleFetchAISuggestions = useCallback(() => {
+    const existingIds = filteredCareers.map(c => c.id);
+    fetchSuggestions({
+      interests,
+      workStyle,
+      values,
+      environment,
+      existingCareerIds: existingIds,
+    });
+  }, [fetchSuggestions, interests, workStyle, values, environment, filteredCareers]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -188,6 +203,16 @@ export default function CareersPage() {
               )}
             </>
           )}
+
+          {/* AI Suggestions Section */}
+          <AISuggestionsSection
+            suggestions={suggestions}
+            isLoading={aiLoading}
+            error={aiError}
+            hasFetched={hasFetched}
+            onFetch={handleFetchAISuggestions}
+            interestLabels={interestLabels}
+          />
         </div>
       </main>
       <Footer />

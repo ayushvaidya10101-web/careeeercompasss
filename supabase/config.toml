@@ -1,1 +1,4 @@
 project_id = "jqegdzucmrgqgeptwtgh"
+
+[functions.ai-career-suggestions]
+verify_jwt = false
