@@ -21,7 +21,7 @@ export default function InterestsPage() {
 
   const handleContinue = () => {
     if (selected.length === 2) {
-      navigate(`/preferences?interests=${selected.join(",")}`);
+      navigate(`/preferences/work-style?interests=${selected.join(",")}`);
     }
   };
 

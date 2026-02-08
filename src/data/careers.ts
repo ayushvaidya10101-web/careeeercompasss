@@ -7,6 +7,7 @@ import { MEDICAL_CAREERS } from './medicalCareers';
 import { ENGINEERING_CAREERS } from './engineeringCareers';
 import { BUSINESS_CAREERS } from './businessCareers';
 import { VOCATIONAL_CAREERS } from './vocationalCareers';
+import { ADDITIONAL_INTERSECTION_CAREERS } from './additionalIntersectionCareers';
 export interface Career {
   id: string;
   title: string;
@@ -726,8 +727,9 @@ export function getCareerDetail(id: string): CareerDetail | null {
     return CAREER_DETAILS[id];
   }
   
-  // Generate basic detail from career if not found
-  const career = CAREERS_DATABASE.find(c => c.id === id);
+  // Search ALL career databases for the career
+  const allCareers = getAllCareers();
+  const career = allCareers.find(c => c.id === id);
   if (!career) return null;
   
   return {
@@ -742,7 +744,7 @@ export function getCareerDetail(id: string): CareerDetail | null {
       undergraduate: [{ degree: career.education, duration: "4 years", link: "https://www.bls.gov/ooh/" }],
       postgraduate: [],
       certifications: [],
-      progression: ["Entry Level", "Mid Level", "Senior Level", "Leadership"]
+      progression: []
     },
     futureOutlook: {
       description: `Growth rate: ${career.growthRate}. Research specific industry outlook.`,
@@ -760,29 +762,33 @@ export function getCareerDetail(id: string): CareerDetail | null {
   };
 }
 
-// Fast intersection-based career filtering
+// Fast intersection-based career filtering - searches ALL career databases
 export function filterCareersByIntersection(interests: string[]): Career[] {
+  const allCareers = getAllCareers();
+  
   if (interests.length !== 2) {
-    // If not exactly 2 interests, return careers matching any interest
-    return CAREERS_DATABASE.filter(career => 
+    return allCareers.filter(career => 
       career.interests.some(i => interests.includes(i))
     ).sort((a, b) => b.relevanceScore - a.relevanceScore);
   }
   
   const sortedInterests = [...interests].sort().join("+");
   
-  // First, get exact intersection matches
-  const intersectionMatches = CAREERS_DATABASE.filter(career =>
-    career.interestCombinations.includes(sortedInterests)
+  // Get exact intersection matches (normalize combo keys for comparison)
+  const intersectionMatches = allCareers.filter(career =>
+    career.interestCombinations.some(combo => {
+      const sortedCombo = combo.split("+").sort().join("+");
+      return sortedCombo === sortedInterests;
+    })
   );
   
-  // Then get careers that match BOTH interests (even if not in combination list)
-  const bothInterestMatches = CAREERS_DATABASE.filter(career =>
-    interests.every(interest => career.interests.includes(interest)) &&
-    !career.interestCombinations.includes(sortedInterests)
+  // Get careers that match BOTH interests (even if not in combination list)
+  const matchedIds = new Set(intersectionMatches.map(c => c.id));
+  const bothInterestMatches = allCareers.filter(career =>
+    !matchedIds.has(career.id) &&
+    interests.every(interest => career.interests.includes(interest))
   );
   
-  // Combine and sort by relevance
   const combined = [...intersectionMatches, ...bothInterestMatches];
   return combined.sort((a, b) => b.relevanceScore - a.relevanceScore);
 }
@@ -828,17 +834,24 @@ export function applyPreferenceScoring(
   });
 }
 
-// Get all careers including all career databases
+// Get all careers including all career databases - deduplicated by ID
 export function getAllCareers(): Career[] {
-  return [
+  const all = [
     ...CAREERS_DATABASE,
     ...EXTENDED_CAREERS,
     ...EMERGING_CAREERS,
     ...MEDICAL_CAREERS,
     ...ENGINEERING_CAREERS,
     ...BUSINESS_CAREERS,
-    ...VOCATIONAL_CAREERS
+    ...VOCATIONAL_CAREERS,
+    ...ADDITIONAL_INTERSECTION_CAREERS
   ];
+  const seen = new Set<string>();
+  return all.filter(career => {
+    if (seen.has(career.id)) return false;
+    seen.add(career.id);
+    return true;
+  });
 }
 
 // Search careers across entire database
