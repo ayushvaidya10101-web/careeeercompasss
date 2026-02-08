@@ -4,6 +4,8 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
 @layer base {
   :root {
     /* Core Brand Colors */
@@ -11,7 +13,7 @@
     --brand-cyan: 188 94% 53%;
     --brand-purple: 263 70% 58%;
     --brand-pink: 330 86% 60%;
-    
+
     /* Backgrounds */
     --background: 210 40% 98%;
     --background-dark: 222 47% 11%;
@@ -23,11 +25,11 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    --primary: 217 91% 53%;
+    --primary: 263 94% 49%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 188 94% 53%;
-    --secondary-foreground: 222 47% 11%;
+    --secondary: 240 27% 84%;
+    --secondary-foreground: 201 96.3415% 32.1569%;
 
     --muted: 210 40% 96%;
     --muted-foreground: 215 16% 47%;
@@ -49,7 +51,7 @@
     --gradient-secondary: linear-gradient(135deg, hsl(188 94% 53%), hsl(217 91% 53%));
     --gradient-accent: linear-gradient(135deg, hsl(263 70% 58%), hsl(330 86% 60%));
     --gradient-hero: linear-gradient(180deg, hsl(222 47% 11%) 0%, hsl(222 47% 15%) 100%);
-    
+
     /* Glow Effects */
     --glow-blue: 0 0 30px hsla(217, 91%, 53%, 0.4);
     --glow-cyan: 0 0 30px hsla(188, 94%, 53%, 0.4);
@@ -137,7 +139,7 @@
     @apply relative overflow-hidden transition-all duration-300;
     box-shadow: var(--glow-blue);
   }
-  
+
   .glow-button:hover {
     box-shadow: 0 0 50px hsla(217, 91%, 53%, 0.6);
     transform: translateY(-2px);
@@ -146,7 +148,7 @@
   .glow-button-cyan {
     box-shadow: var(--glow-cyan);
   }
-  
+
   .glow-button-cyan:hover {
     box-shadow: 0 0 50px hsla(188, 94%, 53%, 0.6);
   }
@@ -154,7 +156,7 @@
   .glow-button-purple {
     box-shadow: var(--glow-purple);
   }
-  
+
   .glow-button-purple:hover {
     box-shadow: 0 0 50px hsla(263, 70%, 58%, 0.6);
   }
@@ -163,7 +165,7 @@
     @apply transition-all duration-300;
     box-shadow: var(--shadow-card);
   }
-  
+
   .card-hover:hover {
     box-shadow: var(--shadow-card-hover);
     transform: translateY(-4px);
@@ -182,7 +184,7 @@
   .gradient-border {
     @apply relative;
   }
-  
+
   .gradient-border::before {
     content: '';
     @apply absolute inset-0 rounded-xl p-[2px];
