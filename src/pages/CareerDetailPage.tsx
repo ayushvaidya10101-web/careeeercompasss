@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { getCareerDetail, CAREERS_DATABASE, INTEREST_CATEGORIES } from "@/data/careers";
+import { getCareerDetail, getAllCareers, INTEREST_CATEGORIES } from "@/data/careers";
 import { CareerColleges } from "@/components/careers/CareerColleges";
 import { AuthModal } from "@/components/auth/AuthModal";
 import { useAuth } from "@/hooks/useAuth";
@@ -120,8 +120,9 @@ export default function CareerDetailPage() {
     INTEREST_CATEGORIES.find(cat => cat.id === id)
   ).filter(Boolean);
 
+  const allCareersDb = getAllCareers();
   const relatedCareers = career.relatedCareers
-    .map(id => CAREERS_DATABASE.find(c => c.id === id))
+    .map(id => allCareersDb.find(c => c.id === id))
     .filter(Boolean)
     .slice(0, 4);
 
@@ -324,21 +325,6 @@ export default function CareerDetailPage() {
                     </div>
                   )}
 
-                  {career.roadmap.progression.length > 0 && (
-                    <div>
-                      <h4 className="font-semibold mb-3">Career Progression</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {career.roadmap.progression.map((stage, i) => (
-                          <div key={i} className="flex items-center gap-2">
-                            <Badge variant="outline">{stage}</Badge>
-                            {i < career.roadmap.progression.length - 1 && (
-                              <span className="text-muted-foreground">→</span>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
                 </CardContent>
               </Card>
 
