@@ -28,9 +28,9 @@ export default function InterestsPage() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="pt-24 pb-16">
+      <main className="pt-28 pb-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center mb-12">
+          <div className="max-w-4xl mx-auto text-center mb-16">
             <h1 className="font-display text-4xl font-bold mb-4">
               Select Your <span className="gradient-text">Interests</span>
             </h1>
