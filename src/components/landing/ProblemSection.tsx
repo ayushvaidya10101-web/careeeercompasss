@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { HelpCircle, Search, BookOpen, AlertTriangle } from "lucide-react";
+import { ScrollReveal } from "@/components/layout/ScrollReveal";
 
 const problems = [
   {
@@ -34,38 +35,40 @@ const problems = [
 
 export function ProblemSection() {
   return (
-    <section id="learn-more" className="py-24 bg-muted/30">
+    <section id="learn-more" className="py-32 bg-muted/30">
       <div className="container mx-auto px-4">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-            Why Career Awareness{" "}
-            <span className="gradient-text">Matters</span>
-          </h2>
-          <p className="text-lg text-muted-foreground">
-            We understand the challenges students face when exploring careers.
-          </p>
-        </div>
+        <ScrollReveal>
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
+              Why Career Awareness{" "}
+              <span className="gradient-text">Matters</span>
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              We understand the challenges students face when exploring careers.
+            </p>
+          </div>
+        </ScrollReveal>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {problems.map((problem, index) => (
-            <Card 
-              key={problem.title} 
-              variant="problem"
-              className="animate-slide-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <CardHeader>
-                <div className={`w-14 h-14 rounded-2xl ${problem.bgColor} flex items-center justify-center mb-4`}>
-                  <problem.icon className={`h-7 w-7 ${problem.color}`} />
-                </div>
-                <CardTitle className="text-lg font-semibold">{problem.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {problem.description}
-                </p>
-              </CardContent>
-            </Card>
+            <ScrollReveal key={problem.title} delay={index * 150}>
+              <Card
+                variant="problem"
+                className="h-full"
+              >
+                <CardHeader>
+                  <div className={`w-14 h-14 rounded-2xl ${problem.bgColor} flex items-center justify-center mb-4`}>
+                    <problem.icon className={`h-7 w-7 ${problem.color}`} />
+                  </div>
+                  <CardTitle className="text-lg font-semibold">{problem.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    {problem.description}
+                  </p>
+                </CardContent>
+              </Card>
+            </ScrollReveal>
           ))}
         </div>
       </div>

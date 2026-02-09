@@ -12,28 +12,40 @@ export function HeroSection() {
         <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-secondary/20 rounded-full blur-3xl animate-float" style={{ animationDelay: "4s" }} />
       </div>
 
-      <div className="container mx-auto px-4 pt-24 pb-16 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
+      <div className="container mx-auto px-4 pt-24 pb-20 relative z-10">
+        <div className="max-w-3xl mx-auto text-center">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8 animate-fade-in">
+          <div
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-10 animate-fade-in"
+            style={{ animationDelay: "0.1s" }}
+          >
             <Sparkles className="h-4 w-4" />
             <span>Discover Your Future — On Your Terms</span>
           </div>
 
           {/* Main Heading */}
-          <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 animate-slide-up">
+          <h1
+            className="font-display text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8 animate-slide-up"
+            style={{ animationDelay: "0.3s" }}
+          >
             Learn More About{" "}
             <span className="gradient-text">Careers</span>
           </h1>
 
           {/* Subheading */}
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-slide-up" style={{ animationDelay: "0.1s" }}>
-            Explore 1000+ career paths with accurate, sourced information. 
+          <p
+            className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-12 animate-slide-up"
+            style={{ animationDelay: "0.5s" }}
+          >
+            Explore 1000+ career paths with accurate, sourced information.
             We educate — you decide.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up" style={{ animationDelay: "0.2s" }}>
+          <div
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up"
+            style={{ animationDelay: "0.7s" }}
+          >
             <Button asChild variant="hero" size="xl">
               <Link to="/interests">
                 Explore Careers
@@ -48,7 +60,10 @@ export function HeroSection() {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-8 mt-16 pt-8 border-t border-border/50 max-w-lg mx-auto animate-fade-in" style={{ animationDelay: "0.4s" }}>
+          <div
+            className="grid grid-cols-3 gap-8 mt-20 pt-10 border-t border-border/50 max-w-lg mx-auto animate-fade-in"
+            style={{ animationDelay: "1.0s" }}
+          >
             <div className="text-center">
               <div className="text-3xl font-display font-bold gradient-text">1000+</div>
               <div className="text-sm text-muted-foreground">Careers</div>

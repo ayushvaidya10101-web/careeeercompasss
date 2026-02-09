@@ -63,14 +63,14 @@ export default function CareersPage() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="pt-24 pb-16">
+      <main className="pt-28 pb-20">
         <div className="container mx-auto px-4">
           <Link to="/interests" className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary mb-8">
             <ArrowLeft className="h-4 w-4" />
             Change Interests
           </Link>
 
-          <div className="text-center max-w-3xl mx-auto mb-12">
+          <div className="text-center max-w-3xl mx-auto mb-16">
             <h1 className="font-display text-4xl font-bold mb-4">
               Career <span className="gradient-text">Exploration</span>
             </h1>
