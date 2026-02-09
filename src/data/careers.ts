@@ -8,6 +8,7 @@ import { ENGINEERING_CAREERS } from './engineeringCareers';
 import { BUSINESS_CAREERS } from './businessCareers';
 import { VOCATIONAL_CAREERS } from './vocationalCareers';
 import { ADDITIONAL_INTERSECTION_CAREERS } from './additionalIntersectionCareers';
+import { EXTRACURRICULAR_CAREERS } from './extracurricularCareers';
 export interface Career {
   id: string;
   title: string;
@@ -844,7 +845,8 @@ export function getAllCareers(): Career[] {
     ...ENGINEERING_CAREERS,
     ...BUSINESS_CAREERS,
     ...VOCATIONAL_CAREERS,
-    ...ADDITIONAL_INTERSECTION_CAREERS
+    ...ADDITIONAL_INTERSECTION_CAREERS,
+    ...EXTRACURRICULAR_CAREERS
   ];
   const seen = new Set<string>();
   return all.filter(career => {

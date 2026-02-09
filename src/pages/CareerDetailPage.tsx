@@ -35,14 +35,27 @@ export default function CareerDetailPage() {
   const { isAuthenticated, loading } = useAuth();
 
   if (!career) {
+    // Fallback: show related careers instead of dead end
+    const allCareers = getAllCareers();
+    const suggestedCareers = allCareers.slice(0, 6);
+
     return (
       <div className="min-h-screen bg-background">
         <Header />
-        <main className="pt-24 pb-16 flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-2xl font-bold mb-4">Career Not Found</h1>
+        <main className="pt-24 pb-16">
+          <div className="container mx-auto px-4 text-center">
+            <h1 className="text-2xl font-bold mb-2">Career Not Found</h1>
+            <p className="text-muted-foreground mb-8">This career may have been moved or renamed. Here are some careers you might like:</p>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto mb-8">
+              {suggestedCareers.map(c => (
+                <Link key={c.id} to={`/career/${c.id}`} className="block p-4 rounded-lg bg-muted/50 hover:bg-muted transition-colors text-left">
+                  <p className="font-semibold text-sm">{c.title}</p>
+                  <p className="text-xs text-muted-foreground line-clamp-2 mt-1">{c.description}</p>
+                </Link>
+              ))}
+            </div>
             <Link to="/interests">
-              <Button>Explore Careers</Button>
+              <Button>Explore All Careers</Button>
             </Link>
           </div>
         </main>
