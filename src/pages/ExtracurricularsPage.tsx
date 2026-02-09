@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -8,27 +8,54 @@ import { Button } from "@/components/ui/button";
 import { 
   EXTRACURRICULAR_CATEGORIES, 
   EXTRACURRICULARS,
-  getExtracurricularsByCategory,
   type Extracurricular 
 } from "@/data/extracurriculars";
 import { EXTENDED_EXTRACURRICULARS } from "@/data/extendedExtracurriculars";
 import { ADDITIONAL_EXTRACURRICULARS } from "@/data/additionalExtracurriculars";
+import { getAllCareers } from "@/data/careers";
 import { Award, ArrowRight, Sparkles, Target, ChevronDown, ChevronUp } from "lucide-react";
 import { useLocalPreferences } from "@/hooks/useLocalPreferences";
 import { AuthModal } from "@/components/auth/AuthModal";
 import { useAuth } from "@/hooks/useAuth";
 
-// Combine all extracurriculars
 const ALL_EXTRACURRICULARS = [...EXTRACURRICULARS, ...EXTENDED_EXTRACURRICULARS, ...ADDITIONAL_EXTRACURRICULARS];
 
 function ExtracurricularCard({ 
   activity, 
+  validCareerIds,
+  userInterests,
+  userPreferences,
   onActivityClick 
 }: { 
   activity: Extracurricular;
+  validCareerIds: Set<string>;
+  userInterests: string[];
+  userPreferences: { workStyle?: string[]; values?: string[]; environment?: string[] };
   onActivityClick: (id: string) => void;
 }) {
   const [expanded, setExpanded] = useState(false);
+
+  // Filter to valid connections and rank by user relevance
+  const rankedConnections = useMemo(() => {
+    const valid = activity.careerConnections.filter(c => validCareerIds.has(c.careerId));
+    if (userInterests.length === 0) return valid;
+
+    // Get all careers for scoring
+    const allCareers = getAllCareers();
+    const careerMap = new Map(allCareers.map(c => [c.id, c]));
+
+    return [...valid].sort((a, b) => {
+      const ca = careerMap.get(a.careerId);
+      const cb = careerMap.get(b.careerId);
+      if (!ca || !cb) return 0;
+
+      const scoreA = getRelevanceScore(ca, userInterests, userPreferences);
+      const scoreB = getRelevanceScore(cb, userInterests, userPreferences);
+      return scoreB - scoreA;
+    });
+  }, [activity.careerConnections, validCareerIds, userInterests, userPreferences]);
+
+  if (rankedConnections.length === 0) return null;
 
   return (
     <Card variant="elevated" className="h-full">
@@ -44,7 +71,6 @@ function ExtracurricularCard({
           </div>
         </div>
 
-        {/* Skills */}
         <div className="mb-4">
           <div className="flex items-center gap-2 text-sm font-medium mb-2">
             <Sparkles className="h-4 w-4 text-brand-cyan" />
@@ -59,20 +85,19 @@ function ExtracurricularCard({
           </div>
         </div>
 
-        {/* Career Connections */}
         <div>
           <button 
             onClick={() => setExpanded(!expanded)}
             className="flex items-center gap-2 text-sm font-medium mb-2 w-full text-left hover:text-primary transition-colors"
           >
             <Target className="h-4 w-4 text-brand-purple" />
-            Career Connections ({activity.careerConnections.length})
+            Career Connections ({rankedConnections.length})
             {expanded ? <ChevronUp className="h-4 w-4 ml-auto" /> : <ChevronDown className="h-4 w-4 ml-auto" />}
           </button>
           
           {expanded && (
             <div className="space-y-2 mt-3 animate-slide-up">
-              {activity.careerConnections.map(connection => (
+              {rankedConnections.map(connection => (
                 <Link 
                   key={connection.careerId}
                   to={`/career/${connection.careerId}`}
@@ -95,18 +120,34 @@ function ExtracurricularCard({
   );
 }
 
+function getRelevanceScore(
+  career: { interests: string[]; preferences: { workStyle: string[]; values: string[]; environment: string[] } },
+  userInterests: string[],
+  userPrefs: { workStyle?: string[]; values?: string[]; environment?: string[] }
+): number {
+  let score = 0;
+  const interestMatch = career.interests.filter(i => userInterests.includes(i)).length;
+  score += interestMatch * 10;
+
+  if (userPrefs.workStyle?.some(ws => career.preferences.workStyle.includes(ws))) score += 5;
+  if (userPrefs.values?.some(v => career.preferences.values.includes(v))) score += 5;
+  if (userPrefs.environment?.some(e => career.preferences.environment.includes(e))) score += 3;
+
+  return score;
+}
+
 export default function ExtracurricularsPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [authModalOpen, setAuthModalOpen] = useState(false);
-  const { addClickedExtracurricular } = useLocalPreferences();
+  const { preferences, addClickedExtracurricular } = useLocalPreferences();
   const { isAuthenticated } = useAuth();
+
+  const validCareerIds = useMemo(() => {
+    return new Set(getAllCareers().map(c => c.id));
+  }, []);
 
   const handleActivityClick = (activityId: string) => {
     addClickedExtracurricular(activityId);
-    // Optionally prompt for auth on first interaction
-    if (!isAuthenticated) {
-      // Could show auth modal here, but keeping it optional
-    }
   };
 
   const displayedActivities = selectedCategory 
@@ -118,7 +159,6 @@ export default function ExtracurricularsPage() {
       <Header />
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4">
-          {/* Hero */}
           <div className="text-center max-w-3xl mx-auto mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 text-secondary-foreground text-sm font-medium mb-6">
               <Award className="h-4 w-4" />
@@ -136,7 +176,6 @@ export default function ExtracurricularsPage() {
             </p>
           </div>
 
-          {/* Category Filter */}
           <div className="flex flex-wrap justify-center gap-2 mb-12">
             <Button
               variant={selectedCategory === null ? "default" : "outline"}
@@ -162,7 +201,6 @@ export default function ExtracurricularsPage() {
             })}
           </div>
 
-          {/* Activities Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {displayedActivities.map((activity, index) => (
               <div 
@@ -172,13 +210,15 @@ export default function ExtracurricularsPage() {
               >
                 <ExtracurricularCard 
                   activity={activity} 
+                  validCareerIds={validCareerIds}
+                  userInterests={preferences.selectedInterests}
+                  userPreferences={preferences.preferences}
                   onActivityClick={handleActivityClick}
                 />
               </div>
             ))}
           </div>
 
-          {/* Info Section */}
           <div className="mt-16 max-w-3xl mx-auto">
             <Card className="bg-muted/30 border-dashed">
               <CardHeader>
@@ -193,9 +233,6 @@ export default function ExtracurricularsPage() {
                   <strong>Note:</strong> Participating in an activity doesn't guarantee success in related careers,
                   and missing activities doesn't prevent you from pursuing any career. Use this as inspiration,
                   not prescription.
-                </p>
-                <p className="text-xs text-muted-foreground/70">
-                  Sources: Crimson Education extracurricular activities research • All information is for educational exploration only
                 </p>
               </CardContent>
             </Card>
