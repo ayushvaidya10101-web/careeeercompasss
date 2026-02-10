@@ -4,6 +4,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { SEOHead } from "@/components/SEOHead";
 import { 
   filterCareersByIntersection, 
   getAllCareers,
@@ -62,8 +63,9 @@ export default function CareersPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead title="Career Exploration" description="Explore careers matched to your interests. Find your ideal career path with accurate, sourced data." />
       <Header />
-      <main className="pt-28 pb-20">
+      <main id="main-content" className="pt-28 pb-20">
         <div className="container mx-auto px-4">
           <Link to="/interests" className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary mb-8">
             <ArrowLeft className="h-4 w-4" />

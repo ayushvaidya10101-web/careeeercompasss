@@ -11,6 +11,7 @@ import { useLocalPreferences } from "@/hooks/useLocalPreferences";
 import { AuthModal } from "@/components/auth/AuthModal";
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
+import { SEOHead } from "@/components/SEOHead";
 
 function EnhancedCollegeCard({ college, index }: { college: College; index: number }) {
   const { addExploredCollege } = useLocalPreferences();
@@ -157,8 +158,9 @@ export default function CollegesCountryPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead title={`Universities in ${country.name}`} description={`Top ${colleges.length} universities in ${country.name} ranked by QS World University Rankings.`} />
       <Header />
-      <main className="pt-24 pb-16">
+      <main id="main-content" className="pt-24 pb-16">
         <div className="container mx-auto px-4">
           <Link to="/colleges" className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary mb-8">
             <ArrowLeft className="h-4 w-4" />

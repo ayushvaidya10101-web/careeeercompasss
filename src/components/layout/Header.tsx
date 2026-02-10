@@ -25,7 +25,7 @@ export function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border" role="banner">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-14 sm:h-16">
           {/* Logo */}
@@ -35,7 +35,7 @@ export function Header() {
           </Link>
           
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-4">
+          <nav className="hidden lg:flex items-center gap-4" aria-label="Main navigation">
             {/* Global Search */}
             <HeaderSearch />
             
@@ -131,7 +131,7 @@ export function Header() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden py-4 border-t border-border">
+          <nav className="lg:hidden py-4 border-t border-border" aria-label="Mobile navigation">
             <div className="flex flex-col gap-1">
               <Link 
                 to="/colleges" 
@@ -212,7 +212,7 @@ export function Header() {
                 </div>
               </div>
             </div>
-          </div>
+          </nav>
         )}
       </div>
 

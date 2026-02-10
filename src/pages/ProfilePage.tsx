@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Clock, User, Mail, CalendarDays } from "lucide-react";
 import { format } from "date-fns";
+import { SEOHead } from "@/components/SEOHead";
 
 interface ExplorationItem {
   id: string;
@@ -61,8 +62,9 @@ const ProfilePage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead title="Your Profile" description="View your career exploration history and saved careers." />
       <Header />
-      <main className="pt-28 pb-20">
+      <main id="main-content" className="pt-28 pb-20">
         <div className="container mx-auto px-4 max-w-3xl">
           {/* Profile Header */}
           <div className="flex items-center gap-4 mb-10">

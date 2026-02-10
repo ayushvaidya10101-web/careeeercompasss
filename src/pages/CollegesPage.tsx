@@ -5,12 +5,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { TOP_COUNTRIES } from "@/data/colleges";
 import { Globe, ArrowRight, GraduationCap, Flag } from "lucide-react";
 import { ScrollReveal } from "@/components/layout/ScrollReveal";
+import { SEOHead } from "@/components/SEOHead";
 
 export default function CollegesPage() {
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead title="Colleges Around the World" description="Explore top-ranked universities across 10 countries sourced from QS World University Rankings." />
       <Header />
-      <main className="pt-28 pb-20">
+      <main id="main-content" className="pt-28 pb-20">
         <div className="container mx-auto px-4">
           {/* Hero Section */}
           <div className="text-center max-w-3xl mx-auto mb-20">

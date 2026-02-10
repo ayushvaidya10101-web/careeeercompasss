@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { ArrowRight, ArrowLeft, Briefcase } from "lucide-react";
+import { SEOHead } from "@/components/SEOHead";
 
 const WORK_STYLES = [
   { id: "leadership", label: "Leadership & Management", description: "Leading teams and making strategic decisions" },
@@ -29,8 +30,9 @@ export default function WorkStylePage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead title="Work Style Preferences" description="Select your preferred work style to find careers that match your personality." />
       <Header />
-      <main className="pt-24 pb-16">
+      <main id="main-content" className="pt-24 pb-16">
         <div className="container mx-auto px-4">
           <Button variant="ghost" onClick={() => navigate(-1)} className="mb-8">
             <ArrowLeft className="h-4 w-4 mr-2" />

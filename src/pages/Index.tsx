@@ -4,17 +4,20 @@ import { HeroSection } from "@/components/landing/HeroSection";
 import { ProblemSection } from "@/components/landing/ProblemSection";
 import { NeutralitySection } from "@/components/landing/NeutralitySection";
 import { CollegesWorldSection } from "@/components/landing/CollegesWorldSection";
+import { SEOHead } from "@/components/SEOHead";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead 
+        title="Career Compass" 
+        description="Explore 1000+ career paths with accurate, sourced information. We educate — you decide." 
+      />
       <Header />
-      <main>
+      <main id="main-content">
         <HeroSection />
-        {/* Problem statements come first as requested */}
         <ProblemSection />
         <NeutralitySection />
-        {/* Explore Careers section comes lower */}
         <CollegesWorldSection />
       </main>
       <Footer />
