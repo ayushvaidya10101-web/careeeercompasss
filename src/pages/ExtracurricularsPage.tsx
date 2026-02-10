@@ -165,10 +165,10 @@ export default function ExtracurricularsPage() {
               <Award className="h-4 w-4" />
               <span>Activity-to-Career Mapping</span>
             </div>
-            <h1 className="font-display text-4xl md:text-5xl font-bold mb-6">
+            <h1 className="font-display text-2xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
               Extracurricular <span className="gradient-text-secondary">Activities</span>
             </h1>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-base sm:text-xl text-muted-foreground">
               Discover how your extracurricular activities can strengthen your path to various careers.
               Every activity builds valuable skills.
             </p>
@@ -177,7 +177,7 @@ export default function ExtracurricularsPage() {
             </p>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-2 mb-12">
+          <div className="flex overflow-x-auto sm:flex-wrap sm:justify-center gap-2 mb-8 sm:mb-12 pb-2 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-hide">
             <Button
               variant={selectedCategory === null ? "default" : "outline"}
               size="sm"
@@ -202,7 +202,7 @@ export default function ExtracurricularsPage() {
             })}
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
             {displayedActivities.map((activity, index) => (
               <div 
                 key={activity.id}

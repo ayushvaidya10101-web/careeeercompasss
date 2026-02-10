@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { TOP_COUNTRIES } from "@/data/colleges";
-import { GraduationCap, Globe, Menu, X, BookOpen, Award, User } from "lucide-react";
+import { GraduationCap, Globe, Menu, X, BookOpen, Award, User, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { AuthModal } from "@/components/auth/AuthModal";
@@ -12,6 +12,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const { user, signOut, isAuthenticated } = useAuth();
 
   const handleSignOut = async () => {
@@ -26,10 +27,10 @@ export function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-14 sm:h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 text-xl font-display font-bold">
-            <GraduationCap className="h-7 w-7 text-primary" />
+          <Link to="/" className="flex items-center gap-2 text-lg sm:text-xl font-display font-bold">
+            <GraduationCap className="h-6 w-6 sm:h-7 sm:w-7 text-primary" />
             <span className="gradient-text">Career Compass</span>
           </Link>
           
@@ -91,25 +92,47 @@ export function Header() {
           </nav>
 
           {/* Mobile Controls */}
-          <div className="flex items-center gap-1 lg:hidden">
+          <div className="flex items-center gap-0.5 lg:hidden">
+            {/* Mobile Search Toggle */}
+            <button
+              onClick={() => {
+                setMobileSearchOpen(!mobileSearchOpen);
+                setMobileMenuOpen(false);
+              }}
+              className="p-2.5 rounded-lg hover:bg-muted min-h-[44px] min-w-[44px] flex items-center justify-center"
+              aria-label="Search"
+            >
+              <Search className="h-5 w-5" />
+            </button>
             <ThemeToggle />
             <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg hover:bg-muted"
+              onClick={() => {
+                setMobileMenuOpen(!mobileMenuOpen);
+                setMobileSearchOpen(false);
+              }}
+              className="p-2.5 rounded-lg hover:bg-muted min-h-[44px] min-w-[44px] flex items-center justify-center"
+              aria-label="Menu"
             >
-              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
         </div>
 
+        {/* Mobile Search Overlay */}
+        {mobileSearchOpen && (
+          <div className="lg:hidden py-3 border-t border-border">
+            <HeaderSearch />
+          </div>
+        )}
+
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="lg:hidden py-4 border-t border-border">
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1">
               <Link 
                 to="/colleges" 
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-2 px-4 py-3 rounded-lg bg-primary/10 text-primary font-medium"
+                className="flex items-center gap-3 px-4 py-3.5 rounded-lg bg-primary/10 text-primary font-medium min-h-[48px]"
               >
                 <Globe className="h-5 w-5" />
                 Explore Colleges
@@ -117,7 +140,7 @@ export function Header() {
               <Link 
                 to="/extracurriculars" 
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-2 px-4 py-3 rounded-lg hover:bg-muted"
+                className="flex items-center gap-3 px-4 py-3.5 rounded-lg hover:bg-muted min-h-[48px]"
               >
                 <Award className="h-5 w-5" />
                 Extracurriculars
@@ -125,7 +148,7 @@ export function Header() {
               <Link 
                 to="/interests" 
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-2 px-4 py-3 rounded-lg hover:bg-muted"
+                className="flex items-center gap-3 px-4 py-3.5 rounded-lg hover:bg-muted min-h-[48px]"
               >
                 <BookOpen className="h-5 w-5" />
                 Explore Careers
@@ -138,7 +161,7 @@ export function Header() {
                     handleSignOut();
                     setMobileMenuOpen(false);
                   }}
-                  className="flex items-center gap-2 px-4 py-3 rounded-lg hover:bg-muted text-left"
+                  className="flex items-center gap-3 px-4 py-3.5 rounded-lg hover:bg-muted text-left min-h-[48px]"
                 >
                   <User className="h-5 w-5" />
                   Sign Out ({user?.email?.split('@')[0]})
@@ -149,7 +172,7 @@ export function Header() {
                     setAuthModalOpen(true);
                     setMobileMenuOpen(false);
                   }}
-                  className="flex items-center gap-2 px-4 py-3 rounded-lg hover:bg-muted text-left"
+                  className="flex items-center gap-3 px-4 py-3.5 rounded-lg hover:bg-muted text-left min-h-[48px]"
                 >
                   <User className="h-5 w-5" />
                   Sign In
@@ -164,7 +187,7 @@ export function Header() {
                       key={country.id}
                       to={`/colleges/${country.id}`}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-full bg-muted/50 hover:bg-primary/10"
+                      className="flex items-center gap-1.5 px-3 py-2 text-sm rounded-full bg-muted/50 hover:bg-primary/10 min-h-[40px]"
                     >
                       <span>{country.flag}</span>
                       <span>{country.name}</span>

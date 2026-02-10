@@ -35,32 +35,32 @@ const problems = [
 
 export function ProblemSection() {
   return (
-    <section id="learn-more" className="py-32 bg-muted/30">
+    <section id="learn-more" className="py-16 sm:py-32 bg-muted/30">
       <div className="container mx-auto px-4">
         <ScrollReveal>
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
+          <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
               Why Career Awareness{" "}
               <span className="gradient-text">Matters</span>
             </h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-base sm:text-lg text-muted-foreground">
               We understand the challenges students face when exploring careers.
             </p>
           </div>
         </ScrollReveal>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid sm:grid-cols-2 gap-4 sm:gap-8 max-w-4xl mx-auto">
           {problems.map((problem, index) => (
             <ScrollReveal key={problem.title} delay={index * 150}>
               <Card
                 variant="problem"
                 className="h-full"
               >
-                <CardHeader>
-                  <div className={`w-14 h-14 rounded-2xl ${problem.bgColor} flex items-center justify-center mb-4`}>
-                    <problem.icon className={`h-7 w-7 ${problem.color}`} />
+                <CardHeader className="pb-2 sm:pb-3">
+                  <div className={`w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl ${problem.bgColor} flex items-center justify-center mb-3 sm:mb-4`}>
+                    <problem.icon className={`h-5 w-5 sm:h-7 sm:w-7 ${problem.color}`} />
                   </div>
-                  <CardTitle className="text-lg font-semibold">{problem.title}</CardTitle>
+                  <CardTitle className="text-base sm:text-lg font-semibold">{problem.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground text-sm leading-relaxed">

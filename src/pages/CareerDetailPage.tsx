@@ -166,33 +166,33 @@ export default function CareerDetailPage() {
             </p>
 
             {/* Quick Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="bg-muted/50 rounded-xl p-4">
-                <div className="flex items-center gap-2 text-brand-cyan mb-1">
-                  <TrendingUp className="h-4 w-4" />
-                  <span className="text-sm font-medium">Demand</span>
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              <div className="bg-muted/50 rounded-xl p-3 sm:p-4">
+                <div className="flex items-center gap-1.5 sm:gap-2 text-brand-cyan mb-1">
+                  <TrendingUp className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                  <span className="text-xs sm:text-sm font-medium">Demand</span>
                 </div>
                 <p className="font-bold">{career.demand}</p>
                 <p className="text-xs text-muted-foreground">{career.growthRate}</p>
               </div>
-              <div className="bg-muted/50 rounded-xl p-4">
-                <div className="flex items-center gap-2 text-brand-cyan mb-1">
-                  <DollarSign className="h-4 w-4" />
-                  <span className="text-sm font-medium">Salary Range</span>
+              <div className="bg-muted/50 rounded-xl p-3 sm:p-4">
+                <div className="flex items-center gap-1.5 sm:gap-2 text-brand-cyan mb-1">
+                  <DollarSign className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                  <span className="text-xs sm:text-sm font-medium">Salary Range</span>
                 </div>
                 <p className="font-bold text-sm">{career.salaryRange}</p>
               </div>
-              <div className="bg-muted/50 rounded-xl p-4">
-                <div className="flex items-center gap-2 text-brand-purple mb-1">
-                  <GraduationCap className="h-4 w-4" />
-                  <span className="text-sm font-medium">Education</span>
+              <div className="bg-muted/50 rounded-xl p-3 sm:p-4">
+                <div className="flex items-center gap-1.5 sm:gap-2 text-brand-purple mb-1">
+                  <GraduationCap className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                  <span className="text-xs sm:text-sm font-medium">Education</span>
                 </div>
                 <p className="font-bold text-sm">{career.education}</p>
               </div>
-              <div className="bg-muted/50 rounded-xl p-4">
-                <div className="flex items-center gap-2 text-brand-pink mb-1">
-                  <Shield className="h-4 w-4" />
-                  <span className="text-sm font-medium">Stability</span>
+              <div className="bg-muted/50 rounded-xl p-3 sm:p-4">
+                <div className="flex items-center gap-1.5 sm:gap-2 text-brand-pink mb-1">
+                  <Shield className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                  <span className="text-xs sm:text-sm font-medium">Stability</span>
                 </div>
                 <p className="font-bold text-sm">{career.stability}</p>
               </div>
