@@ -32,7 +32,7 @@ export default function InterestsPage() {
       <main className="pt-28 pb-20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center mb-16">
-            <h1 className="font-display text-4xl font-bold mb-4">
+            <h1 className="font-display text-2xl sm:text-4xl font-bold mb-4">
               Select Your <span className="gradient-text">Interests</span>
             </h1>
             <p className="text-lg text-muted-foreground">
@@ -43,7 +43,7 @@ export default function InterestsPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl mx-auto mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto mb-8 sm:mb-12">
             {INTEREST_CATEGORIES.map((interest) => {
               const isSelected = selected.includes(interest.id);
               return (
@@ -53,7 +53,7 @@ export default function InterestsPage() {
                   className={`cursor-pointer ${isSelected ? "border-primary shadow-glow bg-primary/5" : ""}`}
                   onClick={() => toggleInterest(interest.id)}
                 >
-                  <CardContent className="p-6 text-center relative">
+                  <CardContent className="p-4 sm:p-6 text-center relative">
                     {isSelected && (
                       <CheckCircle2 className="absolute top-3 right-3 h-5 w-5 text-primary" />
                     )}
