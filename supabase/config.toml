@@ -1,1 +1,6 @@
 project_id = "zqarypzmaszcrswjwbrt"
+
+# SECURITY: Disable default JWT verification — we verify tokens
+# in code using getClaims() for proper signing-keys support.
+[functions.ai-career-suggestions]
+verify_jwt = false
