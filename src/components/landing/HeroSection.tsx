@@ -57,19 +57,32 @@ export function HeroSection() {
 
           {/* CTA Buttons */}
           <div
-            className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 animate-slide-up"
+            className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-w-lg mx-auto animate-slide-up"
             style={{ animationDelay: "0.7s" }}
           >
-            <Button asChild variant="hero" size="xl" className="w-full sm:w-auto min-h-[48px]">
+            <Button asChild variant="hero" size="lg" className="min-h-[48px]">
               <Link to="/interests">
                 Explore Careers
                 <ArrowRight className="h-5 w-5 ml-2" />
               </Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="w-full sm:w-auto min-h-[48px]">
-              <a href="#learn-more">
-                Know More About Careers
-              </a>
+            <Button asChild variant="hero" size="lg" className="min-h-[48px]">
+              <Link to="/colleges">
+                Explore Colleges
+                <ArrowRight className="h-5 w-5 ml-2" />
+              </Link>
+            </Button>
+            <Button asChild variant="hero" size="lg" className="min-h-[48px]">
+              <Link to="/extracurriculars">
+                Extracurriculars
+                <ArrowRight className="h-5 w-5 ml-2" />
+              </Link>
+            </Button>
+            <Button asChild variant="hero" size="lg" className="min-h-[48px]">
+              <Link to="/careers">
+                View All Careers
+                <ArrowRight className="h-5 w-5 ml-2" />
+              </Link>
             </Button>
           </div>
 
@@ -79,7 +92,7 @@ export function HeroSection() {
             style={{ animationDelay: "1.0s" }}
           >
             <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-display font-bold gradient-text">1000+</div>
+              <div className="text-2xl sm:text-3xl font-display font-bold gradient-text">500+</div>
               <div className="text-xs sm:text-sm text-muted-foreground">Careers</div>
             </div>
             <div className="text-center">
@@ -87,7 +100,7 @@ export function HeroSection() {
               <div className="text-xs sm:text-sm text-muted-foreground">Colleges</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-display font-bold gradient-text">10</div>
+              <div className="text-2xl sm:text-3xl font-display font-bold gradient-text">+10</div>
               <div className="text-xs sm:text-sm text-muted-foreground">Countries</div>
             </div>
           </div>
