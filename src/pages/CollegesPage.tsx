@@ -14,7 +14,7 @@ export default function CollegesPage() {
         <div className="container mx-auto px-4">
           {/* Hero Section */}
           <div className="text-center max-w-3xl mx-auto mb-20">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 text-secondary-foreground text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/20 text-foreground text-sm font-medium mb-6">
               <Globe className="h-4 w-4" />
               <span>Global Education Explorer</span>
             </div>

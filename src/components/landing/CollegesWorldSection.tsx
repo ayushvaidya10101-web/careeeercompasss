@@ -10,7 +10,7 @@ export function CollegesWorldSection() {
       <div className="container mx-auto px-4">
         <ScrollReveal>
           <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
-            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-secondary/50 text-secondary-foreground text-xs sm:text-sm font-medium mb-3 sm:mb-4">
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-secondary/20 text-foreground text-xs sm:text-sm font-medium mb-3 sm:mb-4">
               <Globe className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               <span>Explore Global Education</span>
             </div>

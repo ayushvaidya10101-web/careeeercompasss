@@ -161,7 +161,7 @@ export default function ExtracurricularsPage() {
       <main className="pt-28 pb-20">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 text-secondary-foreground text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/20 text-foreground text-sm font-medium mb-6">
               <Award className="h-4 w-4" />
               <span>Activity-to-Career Mapping</span>
             </div>
