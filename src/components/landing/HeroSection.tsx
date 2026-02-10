@@ -16,7 +16,7 @@ export function HeroSection() {
       setTimeout(() => {
         setCurrentIndex((prev) => (prev + 1) % ROTATING_WORDS.length);
         setIsTransitioning(false);
-      }, 400);
+      }, 600);
     }, ROTATION_INTERVAL);
     return () => clearInterval(interval);
   }, []);
@@ -37,10 +37,10 @@ export function HeroSection() {
             style={{ animationDelay: "0.3s" }}
           >
             <span
-              className="inline-flex items-center justify-center border-2 border-primary px-3 py-1 sm:px-5 sm:py-2 min-w-[140px] sm:min-w-[260px] transition-opacity duration-400"
+              className="inline-block gradient-text transition-opacity duration-700 ease-in-out"
               style={{ opacity: isTransitioning ? 0 : 1 }}
             >
-              <span className="gradient-text">{ROTATING_WORDS[currentIndex]}</span>
+              {ROTATING_WORDS[currentIndex]}
             </span>{" "}
             More About{" "}
             <span className="text-foreground">Careers</span>
