@@ -18,7 +18,7 @@ const buttonVariants = cva(
         glow: "bg-gradient-to-r from-brand-blue to-brand-purple text-primary-foreground shadow-glow hover:shadow-[0_0_60px_hsla(217,91%,53%,0.7)] hover:-translate-y-1",
         glowCyan: "bg-gradient-to-r from-brand-cyan to-brand-blue text-primary-foreground shadow-glow-cyan hover:shadow-[0_0_60px_hsla(188,94%,53%,0.7)] hover:-translate-y-1",
         glowPurple: "bg-gradient-to-r from-brand-purple to-brand-pink text-primary-foreground shadow-glow-purple hover:shadow-[0_0_60px_hsla(263,70%,58%,0.7)] hover:-translate-y-1",
-        hero: "bg-gradient-to-r from-primary via-accent to-brand-pink text-primary-foreground font-bold shadow-[4px_6px_0px_0px_hsl(0,0%,0%/0.7)] hover:shadow-[6px_8px_0px_0px_hsl(0,0%,0%/0.8)] hover:-translate-y-0.5 active:translate-y-0 active:shadow-[2px_3px_0px_0px_hsl(0,0%,0%/0.7)]",
+        hero: "bg-gradient-to-r from-brand-blue via-brand-purple to-brand-pink text-primary-foreground shadow-glow hover:shadow-[0_0_80px_hsla(217,91%,53%,0.8)] hover:-translate-y-1.5 font-bold",
       },
       size: {
         default: "h-10 px-5 py-2",
