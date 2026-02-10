@@ -1,7 +1,6 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { HeroSection } from "@/components/landing/HeroSection";
-import { ProblemSection } from "@/components/landing/ProblemSection";
 import { NeutralitySection } from "@/components/landing/NeutralitySection";
 import { CollegesWorldSection } from "@/components/landing/CollegesWorldSection";
 
@@ -10,11 +9,11 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Header />
       <main>
+        {/* Awareness-first hero with challenge cards */}
         <HeroSection />
-        {/* Problem statements come first as requested */}
-        <ProblemSection />
+        {/* Our promise of neutrality */}
         <NeutralitySection />
-        {/* Explore Careers section comes lower */}
+        {/* Exploration as a natural next step */}
         <CollegesWorldSection />
       </main>
       <Footer />
