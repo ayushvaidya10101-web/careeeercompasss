@@ -14,6 +14,7 @@ import { EXTENDED_EXTRACURRICULARS } from "@/data/extendedExtracurriculars";
 import { ADDITIONAL_EXTRACURRICULARS } from "@/data/additionalExtracurriculars";
 import { getAllCareers } from "@/data/careers";
 import { Award, ArrowRight, Sparkles, Target, ChevronDown, ChevronUp } from "lucide-react";
+import { DynamicIcon } from "@/components/DynamicIcon";
 import { useLocalPreferences } from "@/hooks/useLocalPreferences";
 import { AuthModal } from "@/components/auth/AuthModal";
 import { useAuth } from "@/hooks/useAuth";
@@ -64,7 +65,7 @@ function ExtracurricularCard({
           className="flex items-start gap-4 mb-4 cursor-pointer" 
           onClick={() => onActivityClick(activity.id)}
         >
-          <div className="text-3xl">{activity.icon}</div>
+          <DynamicIcon name={activity.icon} className="h-8 w-8 text-primary" />
           <div className="flex-1">
             <h3 className="font-display font-semibold text-lg mb-1">{activity.name}</h3>
             <p className="text-sm text-muted-foreground">{activity.description}</p>
@@ -194,7 +195,7 @@ export default function ExtracurricularsPage() {
                   onClick={() => setSelectedCategory(cat.id)}
                   className="gap-1.5"
                 >
-                  <span>{cat.icon}</span>
+                  <DynamicIcon name={cat.icon} className="h-4 w-4" />
                   {cat.label} ({count})
                 </Button>
               );

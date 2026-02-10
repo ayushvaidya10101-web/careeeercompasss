@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { INTEREST_CATEGORIES } from "@/data/careers";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { DynamicIcon } from "@/components/DynamicIcon";
 
 export default function InterestsPage() {
   const [selected, setSelected] = useState<string[]>([]);
@@ -56,7 +57,7 @@ export default function InterestsPage() {
                     {isSelected && (
                       <CheckCircle2 className="absolute top-3 right-3 h-5 w-5 text-primary" />
                     )}
-                    <div className="text-3xl mb-3">{interest.icon}</div>
+                    <DynamicIcon name={interest.icon} className="h-8 w-8 text-primary mb-3" />
                     <h3 className="font-semibold text-sm">{interest.label}</h3>
                   </CardContent>
                 </Card>
