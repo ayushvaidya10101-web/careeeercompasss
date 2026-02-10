@@ -1,35 +1,49 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Sparkles, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { useEffect, useState } from "react";
+
+const ROTATING_WORDS = ["Learn", "Be Aware", "Understand", "Discover"];
+const ROTATION_INTERVAL = 3000;
 
 export function HeroSection() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentIndex((prev) => (prev + 1) % ROTATING_WORDS.length);
+        setIsTransitioning(false);
+      }, 400);
+    }, ROTATION_INTERVAL);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-background via-background to-muted/30">
       {/* Background Effects — hidden on mobile for perf */}
       <div className="absolute inset-0 overflow-hidden hidden sm:block">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-float" />
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl animate-float" style={{ animationDelay: "2s" }} />
-        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-secondary/20 rounded-full blur-3xl animate-float" style={{ animationDelay: "4s" }} />
       </div>
 
       <div className="container mx-auto px-4 pt-20 sm:pt-24 pb-16 sm:pb-20 relative z-10">
-        <div className="max-w-3xl mx-auto text-center">
-          {/* Badge */}
-          <div
-            className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-medium mb-6 sm:mb-10 animate-fade-in"
-            style={{ animationDelay: "0.1s" }}
-          >
-            <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" />
-            <span>Discover Your Future — On Your Terms</span>
-          </div>
-
-          {/* Main Heading */}
+        <div className="max-w-4xl mx-auto text-center">
+          {/* Rotating Headline */}
           <h1
             className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-5 sm:mb-8 animate-slide-up"
             style={{ animationDelay: "0.3s" }}
           >
-            Learn More About{" "}
-            <span className="gradient-text">Careers</span>
+            <span
+              className="inline-flex items-center justify-center border-2 border-primary px-3 py-1 sm:px-5 sm:py-2 min-w-[140px] sm:min-w-[260px] transition-opacity duration-400"
+              style={{ opacity: isTransitioning ? 0 : 1 }}
+            >
+              <span className="gradient-text">{ROTATING_WORDS[currentIndex]}</span>
+            </span>{" "}
+            More About{" "}
+            <span className="text-foreground">Careers</span>
           </h1>
 
           {/* Subheading */}
@@ -54,7 +68,7 @@ export function HeroSection() {
             </Button>
             <Button asChild variant="outline" size="lg" className="w-full sm:w-auto min-h-[48px]">
               <a href="#learn-more">
-                Learn More
+                Know More About Careers
               </a>
             </Button>
           </div>
@@ -80,7 +94,7 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Scroll Indicator — hidden on very small screens */}
+      {/* Scroll Indicator */}
       <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden sm:block">
         <div className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex items-start justify-center p-2">
           <div className="w-1.5 h-3 rounded-full bg-muted-foreground/50" />
