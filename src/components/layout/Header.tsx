@@ -41,7 +41,7 @@ export function Header() {
             
             {/* Primary Action Buttons */}
             <Link to="/extracurriculars">
-              <Button variant="ghost" size="sm" className="gap-2">
+              <Button variant="glow" size="sm" className="gap-2">
                 <Award className="h-4 w-4" />
                 Extracurriculars
               </Button>
