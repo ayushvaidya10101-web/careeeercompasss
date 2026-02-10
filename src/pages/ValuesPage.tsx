@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { ArrowRight, ArrowLeft, Heart } from "lucide-react";
+import { SEOHead } from "@/components/SEOHead";
 
 const VALUES = [
   { id: "impact", label: "Making an Impact", description: "Creating meaningful change in the world" },
@@ -30,8 +31,9 @@ export default function ValuesPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead title="Core Values" description="Choose what matters most to you to discover careers aligned with your values." />
       <Header />
-      <main className="pt-24 pb-16">
+      <main id="main-content" className="pt-24 pb-16">
         <div className="container mx-auto px-4">
           <Button variant="ghost" onClick={() => navigate(-1)} className="mb-8">
             <ArrowLeft className="h-4 w-4 mr-2" />

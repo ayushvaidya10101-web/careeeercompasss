@@ -142,7 +142,7 @@ export default function CareerDetailPage() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="pt-24 pb-16">
+      <main id="main-content" className="pt-24 pb-16">
         <div className="container mx-auto px-4">
           <Link to="/careers" className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary mb-8">
             <ArrowLeft className="h-4 w-4" />

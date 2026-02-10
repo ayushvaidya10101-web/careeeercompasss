@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { ArrowRight, ArrowLeft, Building2 } from "lucide-react";
+import { SEOHead } from "@/components/SEOHead";
 
 const ENVIRONMENTS = [
   { id: "office", label: "Office Setting", description: "Traditional professional workspace" },
@@ -31,8 +32,9 @@ export default function EnvironmentPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead title="Work Environment" description="Select your preferred work environment to find the best career matches." />
       <Header />
-      <main className="pt-24 pb-16">
+      <main id="main-content" className="pt-24 pb-16">
         <div className="container mx-auto px-4">
           <Button variant="ghost" onClick={() => navigate(-1)} className="mb-8">
             <ArrowLeft className="h-4 w-4 mr-2" />

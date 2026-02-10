@@ -18,6 +18,7 @@ import { DynamicIcon } from "@/components/DynamicIcon";
 import { useLocalPreferences } from "@/hooks/useLocalPreferences";
 import { AuthModal } from "@/components/auth/AuthModal";
 import { useAuth } from "@/hooks/useAuth";
+import { SEOHead } from "@/components/SEOHead";
 
 const ALL_EXTRACURRICULARS = [...EXTRACURRICULARS, ...EXTENDED_EXTRACURRICULARS, ...ADDITIONAL_EXTRACURRICULARS];
 
@@ -157,8 +158,9 @@ export default function ExtracurricularsPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead title="Extracurricular Activities" description="Discover how extracurricular activities build skills that connect to various career paths." />
       <Header />
-      <main className="pt-28 pb-20">
+      <main id="main-content" className="pt-28 pb-20">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/20 text-foreground text-sm font-medium mb-6">

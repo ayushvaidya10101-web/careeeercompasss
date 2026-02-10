@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { INTEREST_CATEGORIES } from "@/data/careers";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { DynamicIcon } from "@/components/DynamicIcon";
+import { SEOHead } from "@/components/SEOHead";
 
 export default function InterestsPage() {
   const [selected, setSelected] = useState<string[]>([]);
@@ -28,8 +29,9 @@ export default function InterestsPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead title="Select Your Interests" description="Choose your top interests to discover matching careers at their intersection." />
       <Header />
-      <main className="pt-28 pb-20">
+      <main id="main-content" className="pt-28 pb-20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center mb-16">
             <h1 className="font-display text-2xl sm:text-4xl font-bold mb-4">

@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 
 export function Footer() {
   return (
-    <footer className="py-8 sm:py-12 border-t border-border bg-muted/30">
+    <footer className="py-8 sm:py-12 border-t border-border bg-muted/30" role="contentinfo">
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center gap-4 sm:gap-6 md:flex-row md:justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 text-lg font-display font-bold">
             <GraduationCap className="h-6 w-6 text-primary" />
-            <span className="gradient-text">CareerPath</span>
+            <span className="gradient-text">Career Compass</span>
           </Link>
 
           {/* Disclaimer */}
