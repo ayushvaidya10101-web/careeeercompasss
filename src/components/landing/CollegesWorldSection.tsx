@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { TOP_COUNTRIES } from "@/data/colleges";
-import { Globe, ArrowRight } from "lucide-react";
+import { Globe, ArrowRight, Flag } from "lucide-react";
 import { ScrollReveal } from "@/components/layout/ScrollReveal";
 
 export function CollegesWorldSection() {
@@ -33,7 +33,7 @@ export function CollegesWorldSection() {
                   className="h-full group"
                 >
                   <CardContent className="p-6 text-center">
-                    <div className="text-4xl mb-3">{country.flag}</div>
+                    <Flag className="h-8 w-8 text-primary mb-3" />
                     <h3 className="font-display font-semibold text-sm mb-1 group-hover:text-primary transition-colors">
                       {country.name}
                     </h3>

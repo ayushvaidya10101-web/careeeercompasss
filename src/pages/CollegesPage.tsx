@@ -3,7 +3,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { TOP_COUNTRIES } from "@/data/colleges";
-import { Globe, ArrowRight, GraduationCap } from "lucide-react";
+import { Globe, ArrowRight, GraduationCap, Flag } from "lucide-react";
 import { ScrollReveal } from "@/components/layout/ScrollReveal";
 
 export default function CollegesPage() {
@@ -38,7 +38,7 @@ export default function CollegesPage() {
                     className="h-full group"
                   >
                     <CardContent className="p-8 text-center">
-                      <div className="text-5xl mb-4">{country.flag}</div>
+                      <Flag className="h-10 w-10 text-primary mb-4" />
                       <h3 className="font-display font-bold text-lg mb-2 group-hover:text-primary transition-colors">
                         {country.name}
                       </h3>

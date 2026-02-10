@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { getCollegesByCountryEnhanced, TOP_COUNTRIES, type College } from "@/data/colleges";
-import { ArrowLeft, ExternalLink, MapPin, Trophy, Users, Globe, Leaf, BookOpen, Building2 } from "lucide-react";
+import { ArrowLeft, ExternalLink, MapPin, Trophy, Users, Globe, Leaf, BookOpen, Building2, Flag } from "lucide-react";
 import { useLocalPreferences } from "@/hooks/useLocalPreferences";
 import { AuthModal } from "@/components/auth/AuthModal";
 import { useState } from "react";
@@ -166,7 +166,7 @@ export default function CollegesCountryPage() {
           </Link>
 
           <div className="text-center mb-12">
-            <div className="text-5xl mb-4">{country.flag}</div>
+            <Flag className="h-12 w-12 text-primary mx-auto mb-4" />
             <h1 className="font-display text-4xl font-bold mb-2">
               Top Universities in <span className="gradient-text">{country.name}</span>
             </h1>
