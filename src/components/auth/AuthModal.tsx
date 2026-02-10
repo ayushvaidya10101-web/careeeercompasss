@@ -1,3 +1,7 @@
+/**
+ * SECURITY: Auth modal with input validation, rate-limit-aware error
+ * handling, and safe error messages (no internal details leaked).
+ */
 import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -5,7 +9,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
-import { Loader2, Mail, Lock, User } from 'lucide-react';
+import { Loader2, Mail, Lock } from 'lucide-react';
+import { sanitizeString, isValidEmail, validatePassword, getSafeErrorMessage } from '@/lib/sanitize';
 
 interface AuthModalProps {
   open: boolean;
@@ -22,27 +27,49 @@ export function AuthModal({ open, onOpenChange, defaultMode = 'signin' }: AuthMo
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
 
+    // SECURITY: Client-side validation before network call
+    const cleanEmail = sanitizeString(email, 254).toLowerCase();
+    if (!isValidEmail(cleanEmail)) {
+      toast.error('Please enter a valid email address.');
+      return;
+    }
+
+    if (mode === 'signup') {
+      const pwError = validatePassword(password);
+      if (pwError) {
+        toast.error(pwError);
+        return;
+      }
+    }
+
+    if (password.length < 6) {
+      toast.error('Password must be at least 6 characters.');
+      return;
+    }
+
+    setLoading(true);
     try {
       if (mode === 'signup') {
-        const { error } = await signUp(email, password);
+        const { error } = await signUp(cleanEmail, password);
         if (error) {
-          toast.error(error.message);
+          toast.error(getSafeErrorMessage(error));
         } else {
           toast.success('Check your email to verify your account!');
           onOpenChange(false);
         }
       } else {
-        const { error } = await signIn(email, password);
+        const { error } = await signIn(cleanEmail, password);
         if (error) {
-          toast.error(error.message);
+          // SECURITY: Generic message for auth failures — don't reveal
+          // whether the email exists or the password was wrong.
+          toast.error('Invalid email or password.');
         } else {
           toast.success('Welcome back!');
           onOpenChange(false);
         }
       }
-    } catch (error) {
+    } catch {
       toast.error('Something went wrong. Please try again.');
     } finally {
       setLoading(false);
@@ -57,7 +84,7 @@ export function AuthModal({ open, onOpenChange, defaultMode = 'signin' }: AuthMo
             {mode === 'signin' ? 'Welcome Back' : 'Create Account'}
           </DialogTitle>
           <DialogDescription>
-            {mode === 'signin' 
+            {mode === 'signin'
               ? 'Sign in to save your career exploration progress'
               : 'Create an account to save careers and track your journey'
             }
@@ -77,6 +104,8 @@ export function AuthModal({ open, onOpenChange, defaultMode = 'signin' }: AuthMo
                 onChange={(e) => setEmail(e.target.value)}
                 className="pl-10"
                 required
+                maxLength={254}
+                autoComplete="email"
               />
             </div>
           </div>
@@ -93,7 +122,9 @@ export function AuthModal({ open, onOpenChange, defaultMode = 'signin' }: AuthMo
                 onChange={(e) => setPassword(e.target.value)}
                 className="pl-10"
                 minLength={6}
+                maxLength={128}
                 required
+                autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
               />
             </div>
           </div>

@@ -1,5 +1,10 @@
+/**
+ * SECURITY: AI career suggestions hook with client-side validation
+ * and safe error handling (no internal details exposed).
+ */
 import { useState, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { getSafeErrorMessage } from "@/lib/sanitize";
 
 export interface AISuggestedCareer {
   id: string;
@@ -41,7 +46,8 @@ export function useAICareerSuggestions(): UseAICareerSuggestionsReturn {
       environment?: string;
       existingCareerIds?: string[];
     }) => {
-      if (params.interests.length === 0) return;
+      // SECURITY: Client-side pre-validation
+      if (params.interests.length === 0 || params.interests.length > 5) return;
 
       setIsLoading(true);
       setError(null);
@@ -49,13 +55,11 @@ export function useAICareerSuggestions(): UseAICareerSuggestionsReturn {
       try {
         const { data, error: fnError } = await supabase.functions.invoke(
           "ai-career-suggestions",
-          {
-            body: params,
-          }
+          { body: params },
         );
 
         if (fnError) {
-          throw new Error(fnError.message || "Failed to fetch AI suggestions");
+          throw new Error(fnError.message || "Request failed");
         }
 
         if (data?.error) {
@@ -68,16 +72,15 @@ export function useAICareerSuggestions(): UseAICareerSuggestionsReturn {
           setSuggestions([]);
         }
       } catch (err) {
-        const message =
-          err instanceof Error ? err.message : "Failed to get AI suggestions";
-        setError(message);
+        // SECURITY: Never expose raw error details to the UI
+        setError(getSafeErrorMessage(err));
         setSuggestions([]);
       } finally {
         setIsLoading(false);
         setHasFetched(true);
       }
     },
-    []
+    [],
   );
 
   return { suggestions, isLoading, error, fetchSuggestions, hasFetched };
