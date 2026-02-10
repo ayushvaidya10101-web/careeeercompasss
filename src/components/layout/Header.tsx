@@ -55,12 +55,16 @@ export function Header() {
 
             <ThemeToggle />
 
-            {/* Auth Button */}
+            {/* Auth / Profile */}
             {isAuthenticated ? (
               <div className="flex items-center gap-2 ml-2">
-                <span className="text-sm text-muted-foreground">
-                  {user?.email?.split('@')[0]}
-                </span>
+                <Link
+                  to="/profile"
+                  className="h-9 w-9 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 flex items-center justify-center text-sm font-bold text-white hover:shadow-[0_0_20px_hsla(30,90%,50%,0.5)] transition-all duration-300"
+                  title="Profile"
+                >
+                  {user?.email?.charAt(0).toUpperCase()}
+                </Link>
                 <Button variant="ghost" size="sm" onClick={handleSignOut}>
                   Sign Out
                 </Button>
@@ -156,16 +160,28 @@ export function Header() {
 
               {/* Auth for Mobile */}
               {isAuthenticated ? (
-                <button
-                  onClick={() => {
-                    handleSignOut();
-                    setMobileMenuOpen(false);
-                  }}
-                  className="flex items-center gap-3 px-4 py-3.5 rounded-lg hover:bg-muted text-left min-h-[48px]"
-                >
-                  <User className="h-5 w-5" />
-                  Sign Out ({user?.email?.split('@')[0]})
-                </button>
+                <>
+                  <Link
+                    to="/profile"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3.5 rounded-lg hover:bg-muted min-h-[48px]"
+                  >
+                    <div className="h-7 w-7 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 flex items-center justify-center text-xs font-bold text-white">
+                      {user?.email?.charAt(0).toUpperCase()}
+                    </div>
+                    Profile
+                  </Link>
+                  <button
+                    onClick={() => {
+                      handleSignOut();
+                      setMobileMenuOpen(false);
+                    }}
+                    className="flex items-center gap-3 px-4 py-3.5 rounded-lg hover:bg-muted text-left min-h-[48px]"
+                  >
+                    <User className="h-5 w-5" />
+                    Sign Out
+                  </button>
+                </>
               ) : (
                 <button
                   onClick={() => {

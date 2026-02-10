@@ -15,6 +15,7 @@ import CollegesPage from "./pages/CollegesPage";
 import CollegesCountryPage from "./pages/CollegesCountryPage";
 import ExtracurricularsPage from "./pages/ExtracurricularsPage";
 import NotFound from "./pages/NotFound";
+import ProfilePage from "./pages/ProfilePage";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +37,7 @@ const App = () => (
             <Route path="/colleges" element={<CollegesPage />} />
             <Route path="/colleges/:countryId" element={<CollegesCountryPage />} />
             <Route path="/extracurriculars" element={<ExtracurricularsPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
