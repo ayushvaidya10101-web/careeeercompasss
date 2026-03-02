@@ -1,4 +1,4 @@
-import { GraduationCap } from "lucide-react";
+import { GraduationCap, Instagram } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export function Footer() {
@@ -20,6 +20,17 @@ export function Footer() {
 
           {/* Links */}
           <div className="flex items-center gap-4 sm:gap-6 text-sm">
+            <a
+              href="https://www.instagram.com/careercompassss/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-primary transition-colors min-h-[44px] flex items-center gap-1.5"
+              aria-label="Follow us on Instagram"
+            >
+              <Instagram className="h-4 w-4" />
+              Instagram
+            </a>
+            <span className="text-muted-foreground/30">|</span>
             <Link to="/interests" className="text-muted-foreground hover:text-primary transition-colors min-h-[44px] flex items-center">
               Explore Careers
             </Link>

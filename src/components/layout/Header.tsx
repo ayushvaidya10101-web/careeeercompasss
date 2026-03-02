@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { TOP_COUNTRIES } from "@/data/colleges";
-import { GraduationCap, Globe, Menu, X, BookOpen, Award, User, Search } from "lucide-react";
+import { GraduationCap, Globe, Menu, X, BookOpen, Award, User, Search, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { AuthModal } from "@/components/auth/AuthModal";
@@ -52,6 +52,16 @@ export function Header() {
                 Explore Colleges
               </Button>
             </Link>
+
+            <a
+              href="https://www.instagram.com/careercompassss/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-lg hover:bg-muted transition-colors"
+              aria-label="Follow us on Instagram"
+            >
+              <Instagram className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors" />
+            </a>
 
             <ThemeToggle />
 
