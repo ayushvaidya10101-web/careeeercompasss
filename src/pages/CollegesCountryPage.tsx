@@ -180,7 +180,7 @@ export default function CollegesCountryPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             {colleges.map((college, index) => (
               <EnhancedCollegeCard key={college.id} college={college} index={index} />
             ))}

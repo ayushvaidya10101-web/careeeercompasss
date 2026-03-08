@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { SkipToContent } from "./components/SkipToContent";
+import { BottomNav } from "./components/layout/BottomNav";
 import { lazy, Suspense } from "react";
 
 // Eager load the landing page for fast initial render
@@ -46,23 +47,28 @@ const App = () => (
           <Sonner />
           <BrowserRouter>
             <SkipToContent />
-            <Suspense fallback={<PageLoader />}>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/interests" element={<InterestsPage />} />
-                <Route path="/preferences/work-style" element={<WorkStylePage />} />
-                <Route path="/preferences/values" element={<ValuesPage />} />
-                <Route path="/preferences/environment" element={<EnvironmentPage />} />
-                <Route path="/careers" element={<CareersPage />} />
-                <Route path="/career/:careerId" element={<CareerDetailPage />} />
-                <Route path="/colleges" element={<CollegesPage />} />
-                <Route path="/colleges/:countryId" element={<CollegesCountryPage />} />
-                <Route path="/extracurriculars" element={<ExtracurricularsPage />} />
-                <Route path="/profile" element={<ProfilePage />} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
+            <div className="overflow-x-hidden">
+              <Suspense fallback={<PageLoader />}>
+                <div className="pb-16 md:pb-0">
+                  <Routes>
+                    <Route path="/" element={<Index />} />
+                    <Route path="/interests" element={<InterestsPage />} />
+                    <Route path="/preferences/work-style" element={<WorkStylePage />} />
+                    <Route path="/preferences/values" element={<ValuesPage />} />
+                    <Route path="/preferences/environment" element={<EnvironmentPage />} />
+                    <Route path="/careers" element={<CareersPage />} />
+                    <Route path="/career/:careerId" element={<CareerDetailPage />} />
+                    <Route path="/colleges" element={<CollegesPage />} />
+                    <Route path="/colleges/:countryId" element={<CollegesCountryPage />} />
+                    <Route path="/extracurriculars" element={<ExtracurricularsPage />} />
+                    <Route path="/profile" element={<ProfilePage />} />
+                    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </div>
+              </Suspense>
+              <BottomNav />
+            </div>
           </BrowserRouter>
         </TooltipProvider>
       </QueryClientProvider>
