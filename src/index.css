@@ -203,6 +203,11 @@
     border-color: var(--primary);
   }
 
+  .dark .glass-card:hover {
+    border-color: rgba(255, 140, 66, 0.28);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
+  }
+
   /* Gradient text */
   .gradient-text {
     @apply bg-clip-text text-transparent;
