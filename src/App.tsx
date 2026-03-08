@@ -7,6 +7,9 @@ import { ThemeProvider } from "./components/ThemeProvider";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { SkipToContent } from "./components/SkipToContent";
 import { BottomNav } from "./components/layout/BottomNav";
+import { NoiseOverlay } from "./components/NoiseOverlay";
+import { CompassCursor } from "./components/CompassCursor";
+import { DarkModeToggle } from "./components/DarkModeToggle";
 import { lazy, Suspense } from "react";
 
 // Eager load the landing page for fast initial render
@@ -32,7 +35,7 @@ function PageLoader() {
     <div className="min-h-screen flex items-center justify-center bg-background">
       <div className="flex flex-col items-center gap-3">
         <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
-        <p className="text-sm text-muted-foreground">Loading…</p>
+        <p className="text-sm text-muted-foreground font-display">Loading…</p>
       </div>
     </div>
   );
@@ -47,6 +50,9 @@ const App = () => (
           <Sonner />
           <BrowserRouter>
             <SkipToContent />
+            <NoiseOverlay />
+            <CompassCursor />
+            <DarkModeToggle />
             <div className="overflow-x-hidden">
               <Suspense fallback={<PageLoader />}>
                 <div className="pb-16 md:pb-0">
