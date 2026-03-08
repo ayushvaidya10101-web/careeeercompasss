@@ -2,7 +2,6 @@ import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { 
@@ -37,12 +36,10 @@ function ExtracurricularCard({
 }) {
   const [expanded, setExpanded] = useState(false);
 
-  // Filter to valid connections and rank by user relevance
   const rankedConnections = useMemo(() => {
     const valid = activity.careerConnections.filter(c => validCareerIds.has(c.careerId));
     if (userInterests.length === 0) return valid;
 
-    // Get all careers for scoring
     const allCareers = getAllCareers();
     const careerMap = new Map(allCareers.map(c => [c.id, c]));
 
@@ -60,27 +57,29 @@ function ExtracurricularCard({
   if (rankedConnections.length === 0) return null;
 
   return (
-    <Card variant="elevated" className="h-full">
-      <CardContent className="p-6">
+    <div className="glass-card gradient-sweep rounded-2xl h-full">
+      <div className="p-5 sm:p-6">
         <div 
           className="flex items-start gap-4 mb-4 cursor-pointer" 
           onClick={() => onActivityClick(activity.id)}
         >
-          <DynamicIcon name={activity.icon} className="h-8 w-8 text-primary" />
+          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:rotate-3 transition-transform">
+            <DynamicIcon name={activity.icon} className="h-5 w-5 text-primary" />
+          </div>
           <div className="flex-1">
-            <h3 className="font-display font-semibold text-lg mb-1">{activity.name}</h3>
+            <h3 className="font-display text-lg mb-1">{activity.name}</h3>
             <p className="text-sm text-muted-foreground">{activity.description}</p>
           </div>
         </div>
 
         <div className="mb-4">
           <div className="flex items-center gap-2 text-sm font-medium mb-2">
-            <Sparkles className="h-4 w-4 text-brand-cyan" />
+            <Sparkles className="h-4 w-4 text-secondary" />
             Skills Developed
           </div>
           <div className="flex flex-wrap gap-1.5">
             {activity.skills.map(skill => (
-              <Badge key={skill} variant="secondary" className="text-xs">
+              <Badge key={skill} variant="teal" className="text-xs">
                 {skill}
               </Badge>
             ))}
@@ -103,22 +102,23 @@ function ExtracurricularCard({
                 <Link 
                   key={connection.careerId}
                   to={`/career/${connection.careerId}`}
-                  className="block p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors group"
+                  className="block p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group"
                 >
                   <div className="flex items-center justify-between mb-1">
-                    <span className="font-medium text-sm group-hover:text-primary transition-colors">
+                    <span className="font-medium text-sm group-hover:text-primary transition-colors flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-sm bg-primary rotate-45 flex-shrink-0" />
                       {connection.careerTitle}
                     </span>
                     <ArrowRight className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity text-primary" />
                   </div>
-                  <p className="text-xs text-muted-foreground">{connection.relevance}</p>
+                  <p className="text-xs text-muted-foreground pl-4">{connection.relevance}</p>
                 </Link>
               ))}
             </div>
           )}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
 
@@ -163,43 +163,48 @@ export default function ExtracurricularsPage() {
       <main id="main-content" className="pt-28 pb-20">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/20 text-foreground text-sm font-medium mb-6">
-              <Award className="h-4 w-4" />
-              <span>Activity-to-Career Mapping</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm mb-6">
+              <Award className="h-4 w-4 text-primary" />
+              <span className="text-muted-foreground">Activity-to-Career Mapping</span>
             </div>
-            <h1 className="font-display text-2xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
-              Extracurricular <span className="gradient-text-secondary">Activities</span>
+            <h1 className="font-display text-3xl sm:text-5xl mb-4">
+              Extracurricular <em className="text-secondary">Activities</em>
             </h1>
-            <p className="text-base sm:text-xl text-muted-foreground">
+            <p className="text-muted-foreground">
               Discover how your extracurricular activities can strengthen your path to various careers.
-              Every activity builds valuable skills.
             </p>
             <p className="text-sm text-muted-foreground mt-3">
               {ALL_EXTRACURRICULARS.length} activities across {EXTRACURRICULAR_CATEGORIES.length} categories
             </p>
           </div>
 
+          {/* Filter tabs */}
           <div className="flex overflow-x-auto sm:flex-wrap sm:justify-center gap-2 mb-8 sm:mb-12 pb-2 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-hide">
-            <Button
-              variant={selectedCategory === null ? "default" : "outline"}
-              size="sm"
+            <button
               onClick={() => setSelectedCategory(null)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap min-h-[44px] ${
+                selectedCategory === null
+                  ? "bg-primary text-primary-foreground shadow-glow"
+                  : "glass hover:bg-primary/10"
+              }`}
             >
-              All Activities ({ALL_EXTRACURRICULARS.length})
-            </Button>
+              All ({ALL_EXTRACURRICULARS.length})
+            </button>
             {EXTRACURRICULAR_CATEGORIES.map(cat => {
               const count = ALL_EXTRACURRICULARS.filter(e => e.category === cat.id).length;
               return (
-                <Button
+                <button
                   key={cat.id}
-                  variant={selectedCategory === cat.id ? "default" : "outline"}
-                  size="sm"
                   onClick={() => setSelectedCategory(cat.id)}
-                  className="gap-1.5"
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap min-h-[44px] flex items-center gap-1.5 ${
+                    selectedCategory === cat.id
+                      ? "bg-primary text-primary-foreground shadow-glow"
+                      : "glass hover:bg-primary/10"
+                  }`}
                 >
                   <DynamicIcon name={cat.icon} className="h-4 w-4" />
                   {cat.label} ({count})
-                </Button>
+                </button>
               );
             })}
           </div>
@@ -223,22 +228,17 @@ export default function ExtracurricularsPage() {
           </div>
 
           <div className="mt-16 max-w-3xl mx-auto">
-            <Card className="bg-muted/30 border-dashed">
-              <CardHeader>
-                <CardTitle className="text-lg text-center">How to Use This Information</CardTitle>
-              </CardHeader>
-              <CardContent className="text-center text-muted-foreground space-y-4">
-                <p>
-                  Extracurricular activities develop skills that are valuable across many careers.
-                  The connections shown here are based on skill alignment, not requirements.
-                </p>
-                <p className="text-sm">
-                  <strong>Note:</strong> Participating in an activity doesn't guarantee success in related careers,
-                  and missing activities doesn't prevent you from pursuing any career. Use this as inspiration,
-                  not prescription.
-                </p>
-              </CardContent>
-            </Card>
+            <div className="glass-card rounded-2xl p-6 sm:p-8 text-center">
+              <h3 className="font-display text-xl mb-3">How to Use This Information</h3>
+              <p className="text-muted-foreground text-sm mb-3">
+                Extracurricular activities develop skills that are valuable across many careers.
+                The connections shown here are based on skill alignment, not requirements.
+              </p>
+              <p className="text-xs text-muted-foreground">
+                <strong>Note:</strong> Participating in an activity doesn't guarantee success in related careers.
+                Use this as inspiration, not prescription.
+              </p>
+            </div>
           </div>
         </div>
       </main>

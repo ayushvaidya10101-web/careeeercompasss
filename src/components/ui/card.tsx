@@ -3,21 +3,21 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const cardVariants = cva(
-  "rounded-2xl border bg-card text-card-foreground transition-all duration-300",
+  "rounded-2xl text-card-foreground transition-all duration-300",
   {
     variants: {
       variant: {
-        default: "shadow-card hover:shadow-card-hover",
-        elevated: "shadow-lg hover:shadow-xl hover:-translate-y-1",
-        glow: "shadow-glow hover:shadow-[0_0_60px_hsla(30,90%,50%,0.5)] hover:-translate-y-2",
-        outline: "border-2 border-primary/20 hover:border-primary/50 bg-transparent",
-        gradient: "bg-gradient-to-br from-card via-card to-muted border-0",
-        dark: "bg-brand-dark text-primary-foreground border-primary/20",
-        college: "shadow-card hover:shadow-[0_8px_40px_-8px_hsla(30,90%,50%,0.4)] hover:border-orange-400/50 hover:-translate-y-2 border-muted",
-        career: "shadow-card hover:shadow-[0_8px_40px_-8px_hsla(30,90%,50%,0.4)] hover:border-orange-400/50 hover:-translate-y-2 border-muted",
-        problem: "bg-gradient-to-br from-card to-muted/50 border-primary/10 hover:border-orange-400/40 shadow-lg hover:shadow-[0_8px_30px_-8px_hsla(30,90%,50%,0.3)] hover:-translate-y-1",
-        interest: "border-2 border-muted hover:border-orange-400 hover:shadow-[0_0_40px_hsla(30,90%,50%,0.4)] cursor-pointer",
-        country: "bg-card hover:bg-muted/50 border-muted hover:border-orange-400/40 hover:shadow-[0_4px_20px_-4px_hsla(30,90%,50%,0.3)] cursor-pointer",
+        default: "glass-card",
+        elevated: "glass-card",
+        glow: "glass-card shadow-glow hover:shadow-card-hover hover:-translate-y-2",
+        outline: "border-2 border-primary/20 hover:border-primary/50 bg-transparent backdrop-blur-sm",
+        gradient: "glass-card",
+        dark: "bg-card border border-border",
+        college: "glass-card gradient-sweep",
+        career: "glass-card gradient-sweep",
+        problem: "glass-card",
+        interest: "glass-card border-2 border-transparent hover:border-primary",
+        country: "glass-card",
       },
     },
     defaultVariants: {
@@ -60,7 +60,7 @@ const CardTitle = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "font-display text-2xl font-semibold leading-none tracking-tight",
+      "font-display text-2xl leading-none tracking-tight",
       className
     )}
     {...props}

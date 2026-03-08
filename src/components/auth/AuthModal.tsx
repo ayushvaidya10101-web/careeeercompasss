@@ -28,7 +28,6 @@ export function AuthModal({ open, onOpenChange, defaultMode = 'signin' }: AuthMo
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // SECURITY: Client-side validation before network call
     const cleanEmail = sanitizeString(email, 254).toLowerCase();
     if (!isValidEmail(cleanEmail)) {
       toast.error('Please enter a valid email address.');
@@ -61,8 +60,6 @@ export function AuthModal({ open, onOpenChange, defaultMode = 'signin' }: AuthMo
       } else {
         const { error } = await signIn(cleanEmail, password);
         if (error) {
-          // SECURITY: Generic message for auth failures — don't reveal
-          // whether the email exists or the password was wrong.
           toast.error('Invalid email or password.');
         } else {
           toast.success('Welcome back!');
@@ -78,7 +75,7 @@ export function AuthModal({ open, onOpenChange, defaultMode = 'signin' }: AuthMo
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md glass-card border border-border rounded-2xl">
         <DialogHeader>
           <DialogTitle className="text-2xl font-display">
             {mode === 'signin' ? 'Welcome Back' : 'Create Account'}
@@ -102,7 +99,7 @@ export function AuthModal({ open, onOpenChange, defaultMode = 'signin' }: AuthMo
                 placeholder="you@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="pl-10"
+                className="pl-10 bg-muted/50 border-border focus:border-primary focus:ring-primary/20"
                 required
                 maxLength={254}
                 autoComplete="email"
@@ -120,7 +117,7 @@ export function AuthModal({ open, onOpenChange, defaultMode = 'signin' }: AuthMo
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="pl-10"
+                className="pl-10 bg-muted/50 border-border focus:border-primary focus:ring-primary/20"
                 minLength={6}
                 maxLength={128}
                 required
@@ -129,7 +126,7 @@ export function AuthModal({ open, onOpenChange, defaultMode = 'signin' }: AuthMo
             </div>
           </div>
 
-          <Button type="submit" className="w-full" disabled={loading}>
+          <Button type="submit" className="w-full rounded-full bg-gradient-to-r from-primary to-primary-hover text-primary-foreground" disabled={loading}>
             {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {mode === 'signin' ? 'Sign In' : 'Create Account'}
           </Button>

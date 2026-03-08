@@ -1,12 +1,11 @@
 import { useParams, Link } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { getCollegesByCountryEnhanced, TOP_COUNTRIES, type College } from "@/data/colleges";
-import { ArrowLeft, ExternalLink, MapPin, Trophy, Users, Globe, Leaf, BookOpen, Building2, Flag } from "lucide-react";
+import { ArrowLeft, ExternalLink, MapPin, Trophy, Users, Globe, Leaf, BookOpen, Building2 } from "lucide-react";
 import { useLocalPreferences } from "@/hooks/useLocalPreferences";
 import { AuthModal } from "@/components/auth/AuthModal";
 import { useState } from "react";
@@ -15,32 +14,29 @@ import { SEOHead } from "@/components/SEOHead";
 
 function EnhancedCollegeCard({ college, index }: { college: College; index: number }) {
   const { addExploredCollege } = useLocalPreferences();
-  const { isAuthenticated } = useAuth();
-  const [showAuthPrompt, setShowAuthPrompt] = useState(false);
 
   const handleCollegeClick = () => {
     addExploredCollege(college.id);
   };
 
   return (
-    <Card 
-      variant="college" 
-      className="overflow-hidden animate-slide-up"
+    <div
+      className="glass-card gradient-sweep rounded-2xl overflow-hidden animate-slide-up"
       style={{ animationDelay: `${index * 0.03}s` }}
     >
-      <CardContent className="p-6">
+      <div className="p-5 sm:p-6">
         {/* Header */}
         <div className="flex items-start gap-4 mb-4">
-          <div className="relative flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-brand-blue to-brand-purple flex items-center justify-center">
-            <Trophy className="h-6 w-6 text-primary-foreground" />
-            <span className="absolute -bottom-1 -right-1 px-1.5 py-0.5 bg-background rounded text-xs font-bold border">
+          <div className="relative flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-primary-hover flex items-center justify-center">
+            <Trophy className="h-5 w-5 text-primary-foreground" />
+            <span className="absolute -bottom-1 -right-1 px-1.5 py-0.5 bg-background rounded-full text-[10px] font-bold border border-border">
               #{college.qsRank}
             </span>
           </div>
           <div className="flex-1 min-w-0">
-            <div className="flex items-start justify-between gap-2 mb-2">
-              <h3 className="font-display font-semibold text-lg leading-tight">{college.name}</h3>
-              <Badge variant={college.type === "Public" ? "secondary" : "outline"} className="flex-shrink-0">
+            <div className="flex items-start justify-between gap-2 mb-1">
+              <h3 className="font-display text-lg leading-tight">{college.name}</h3>
+              <Badge variant={college.type === "Public" ? "secondary" : "outline"} className="flex-shrink-0 text-[10px]">
                 {college.type}
               </Badge>
             </div>
@@ -54,14 +50,14 @@ function EnhancedCollegeCard({ college, index }: { college: College; index: numb
         {/* Description */}
         <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{college.description}</p>
 
-        {/* QS Metrics - Enhanced */}
+        {/* QS Metrics */}
         {(college.learningExperience || college.employability) && (
-          <div className="grid grid-cols-2 gap-3 mb-4 p-3 rounded-lg bg-muted/30">
+          <div className="grid grid-cols-2 gap-3 mb-4 p-3 rounded-xl bg-muted/30">
             {college.learningExperience && (
               <div className="space-y-1">
                 <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                   <BookOpen className="h-3 w-3" />
-                  Learning Experience
+                  Learning
                 </div>
                 <Progress value={college.learningExperience} className="h-1.5" />
                 <span className="text-xs font-medium">{college.learningExperience}/100</span>
@@ -81,7 +77,7 @@ function EnhancedCollegeCard({ college, index }: { college: College; index: numb
               <div className="space-y-1">
                 <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                   <Globe className="h-3 w-3" />
-                  Global Engagement
+                  Global
                 </div>
                 <Progress value={college.globalEngagement} className="h-1.5" />
                 <span className="text-xs font-medium">{college.globalEngagement}/100</span>
@@ -122,27 +118,25 @@ function EnhancedCollegeCard({ college, index }: { college: College; index: numb
         {/* Popular Courses */}
         <div className="flex flex-wrap gap-1.5 mb-4">
           {college.popularCourses.slice(0, 4).map(course => (
-            <Badge key={course} variant="secondary" className="text-xs">{course}</Badge>
+            <Badge key={course} variant="default" className="text-xs">{course}</Badge>
           ))}
           {college.popularCourses.length > 4 && (
-            <Badge variant="outline" className="text-xs">+{college.popularCourses.length - 4} more</Badge>
+            <Badge variant="outline" className="text-xs">+{college.popularCourses.length - 4}</Badge>
           )}
         </div>
 
-        {/* Action Button */}
-        <Button 
-          asChild 
-          variant="outline" 
-          size="sm" 
-          className="w-full"
+        {/* Action */}
+        <a
+          href={college.website}
+          target="_blank"
+          rel="noopener noreferrer"
           onClick={handleCollegeClick}
+          className="inline-flex items-center gap-2 text-primary text-sm font-medium hover:gap-3 transition-all duration-200"
         >
-          <a href={college.website} target="_blank" rel="noopener noreferrer">
-            Visit Official Website <ExternalLink className="h-3 w-3 ml-2" />
-          </a>
-        </Button>
-      </CardContent>
-    </Card>
+          Visit Official Website <ExternalLink className="h-3.5 w-3.5" />
+        </a>
+      </div>
+    </div>
   );
 }
 
@@ -153,7 +147,7 @@ export default function CollegesCountryPage() {
   const [authModalOpen, setAuthModalOpen] = useState(false);
 
   if (!country) {
-    return <div className="min-h-screen flex items-center justify-center">Country not found</div>;
+    return <div className="min-h-screen flex items-center justify-center font-display text-xl">Country not found</div>;
   }
 
   return (
@@ -162,15 +156,17 @@ export default function CollegesCountryPage() {
       <Header />
       <main id="main-content" className="pt-24 pb-16">
         <div className="container mx-auto px-4">
-          <Link to="/colleges" className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary mb-8">
+          <Link to="/colleges" className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary mb-8 text-sm">
             <ArrowLeft className="h-4 w-4" />
             Back to Countries
           </Link>
 
           <div className="text-center mb-12">
-            <Flag className="h-12 w-12 text-primary mx-auto mb-4" />
-            <h1 className="font-display text-4xl font-bold mb-2">
-              Top Universities in <span className="gradient-text">{country.name}</span>
+            <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl">{country.flag}</span>
+            </div>
+            <h1 className="font-display text-3xl sm:text-4xl mb-2">
+              Top Universities in <em className="text-primary">{country.name}</em>
             </h1>
             <p className="text-muted-foreground">
               {colleges.length} universities ranked by QS World University Rankings 2024
@@ -180,7 +176,7 @@ export default function CollegesCountryPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto">
             {colleges.map((college, index) => (
               <EnhancedCollegeCard key={college.id} college={college} index={index} />
             ))}
@@ -188,11 +184,10 @@ export default function CollegesCountryPage() {
 
           {/* Disclaimer */}
           <div className="mt-12 max-w-3xl mx-auto text-center">
-            <div className="p-4 rounded-lg bg-muted/30 border border-dashed border-border">
+            <div className="p-4 rounded-2xl glass-card border-dashed">
               <p className="text-sm text-muted-foreground">
                 <strong>Disclaimer:</strong> University rankings are provided for informational purposes only.
-                This platform does not recommend or advise on college selection. Always conduct your own research
-                and consult official university sources before making educational decisions.
+                This platform does not recommend or advise on college selection.
               </p>
             </div>
           </div>

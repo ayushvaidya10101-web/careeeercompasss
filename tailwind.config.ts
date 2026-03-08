@@ -14,9 +14,9 @@ export default {
   	},
   	extend: {
 		fontFamily: {
-			sans: ['Public Sans', 'sans-serif'],
-			display: ['Public Sans', 'sans-serif'],
-			serif: ['Courier Prime', 'serif'],
+			sans: ['DM Sans', 'sans-serif'],
+			display: ['Instrument Serif', 'serif'],
+			serif: ['Instrument Serif', 'serif'],
 			mono: ['JetBrains Mono', 'monospace']
 		},
 		colors: {
@@ -73,10 +73,12 @@ export default {
 		},
 		borderRadius: {
 			lg: 'var(--radius)',
-			md: 'calc(var(--radius) - 2px)',
-			sm: 'calc(var(--radius) - 4px)',
+			md: 'calc(var(--radius) - 4px)',
+			sm: 'calc(var(--radius) - 8px)',
 			xl: 'calc(var(--radius) + 4px)',
-			'2xl': 'calc(var(--radius) + 8px)'
+			'2xl': 'calc(var(--radius) + 8px)',
+			'3xl': '24px',
+			full: '9999px',
 		},
   		boxShadow: {
   			glow: 'var(--glow-blue)',
@@ -88,28 +90,16 @@ export default {
   		},
   		keyframes: {
   			'accordion-down': {
-  				from: {
-  					height: '0'
-  				},
-  				to: {
-  					height: 'var(--radix-accordion-content-height)'
-  				}
+  				from: { height: '0' },
+  				to: { height: 'var(--radix-accordion-content-height)' }
   			},
   			'accordion-up': {
-  				from: {
-  					height: 'var(--radix-accordion-content-height)'
-  				},
-  				to: {
-  					height: '0'
-  				}
+  				from: { height: 'var(--radix-accordion-content-height)' },
+  				to: { height: '0' }
   			},
   			shimmer: {
-  				'0%': {
-  					backgroundPosition: '-200% 0'
-  				},
-  				'100%': {
-  					backgroundPosition: '200% 0'
-  				}
+  				'0%': { backgroundPosition: '-200% 0' },
+  				'100%': { backgroundPosition: '200% 0' }
   			}
   		},
   		animation: {
@@ -119,7 +109,7 @@ export default {
   		},
 		backgroundImage: {
 			'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-			'gradient-primary': 'linear-gradient(135deg, var(--brand-blue), var(--brand-purple))',
+			'gradient-primary': 'linear-gradient(135deg, var(--brand-blue), var(--brand-pink))',
 			'gradient-secondary': 'linear-gradient(135deg, var(--brand-cyan), var(--brand-blue))',
 			'gradient-accent': 'linear-gradient(135deg, var(--brand-purple), var(--brand-pink))'
 		}
