@@ -1,0 +1,88 @@
+import type { Career } from './careers';
+
+export const LEGAL_CAREERS: Career[] = [
+  {
+    id: "criminal-lawyer",
+    title: "Criminal Defense Lawyer",
+    description: "Defend individuals accused of criminal offenses, build legal strategies, and represent clients in court.",
+    interests: ["law"],
+    interestCombinations: ["business+law"],
+    preferences: { workStyle: ["analytical", "advocacy"], values: ["justice", "defense"], environment: ["courthouse", "office"] },
+    relevanceScore: 92,
+    demand: "Medium",
+    growthRate: "5% (2023-2033)",
+    salaryRange: "₹5L–₹30L / $70k–$200k",
+    education: "LLB/JD",
+    tags: ["Criminal Law", "Defense", "Litigation", "Justice"]
+  },
+  {
+    id: "ip-attorney",
+    title: "IP & Patent Attorney",
+    description: "Protect intellectual property rights through patents, trademarks, and copyright law.",
+    interests: ["law", "technology"],
+    interestCombinations: ["business+law", "technology+business"],
+    preferences: { workStyle: ["analytical", "research"], values: ["innovation", "protection"], environment: ["office"] },
+    relevanceScore: 94,
+    demand: "High",
+    growthRate: "9% (2023-2033)",
+    salaryRange: "₹8L–₹40L / $100k–$250k",
+    education: "LLB + technical degree",
+    tags: ["Patents", "IP", "Innovation", "Legal"]
+  },
+  {
+    id: "human-rights-lawyer",
+    title: "Human Rights Lawyer",
+    description: "Advocate for human rights causes, represent victims of injustice, and work with international organizations.",
+    interests: ["law", "education"],
+    interestCombinations: ["business+law"],
+    preferences: { workStyle: ["advocacy", "research"], values: ["justice", "human-rights"], environment: ["office", "field"] },
+    relevanceScore: 90,
+    demand: "Medium",
+    growthRate: "6% (2023-2033)",
+    salaryRange: "₹4L–₹20L / $50k–$120k",
+    education: "LLB/JD + International Law",
+    tags: ["Human Rights", "Policy", "Justice", "NGO"]
+  },
+  {
+    id: "judge",
+    title: "Judge / Judicial Officer",
+    description: "Preside over court proceedings, interpret laws, and deliver rulings on legal cases.",
+    interests: ["law"],
+    interestCombinations: ["business+law"],
+    preferences: { workStyle: ["analytical", "impartial"], values: ["justice", "law"], environment: ["courthouse"] },
+    relevanceScore: 95,
+    demand: "Low",
+    growthRate: "3% (2023-2033)",
+    salaryRange: "₹10L–₹35L",
+    education: "LLB + experience",
+    tags: ["Judiciary", "Law", "Justice", "Government"]
+  },
+  {
+    id: "public-prosecutor",
+    title: "Public Prosecutor",
+    description: "Represent the government in criminal cases, present evidence, and seek justice for victims.",
+    interests: ["law"],
+    interestCombinations: ["business+law"],
+    preferences: { workStyle: ["advocacy", "analytical"], values: ["justice", "public-service"], environment: ["courthouse", "office"] },
+    relevanceScore: 91,
+    demand: "Medium",
+    growthRate: "4% (2023-2033)",
+    salaryRange: "₹6L–₹25L / $60k–$120k",
+    education: "LLB/JD",
+    tags: ["Criminal Law", "Government", "Prosecution", "Justice"]
+  },
+  {
+    id: "legal-tech-consultant",
+    title: "Legal Tech Consultant",
+    description: "Help law firms and legal departments adopt technology solutions for practice management and research.",
+    interests: ["law", "technology"],
+    interestCombinations: ["business+law", "technology+business"],
+    preferences: { workStyle: ["consulting", "innovative"], values: ["innovation", "efficiency"], environment: ["office", "remote"] },
+    relevanceScore: 93,
+    demand: "High",
+    growthRate: "18% (2023-2033)",
+    salaryRange: "₹10L–₹35L / $90k–$160k",
+    education: "LLB + CS or MBA",
+    tags: ["LegalTech", "Innovation", "Law", "Technology"]
+  },
+];

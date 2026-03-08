@@ -354,6 +354,227 @@ export const EXTRACURRICULARS: Extracurricular[] = [
       { careerId: "environmental-engineer", careerTitle: "Environmental Engineer", relevance: "Agricultural and ecological knowledge" },
     ]
   },
+
+  // Leadership — MUN (extended)
+  {
+    id: "mun",
+    name: "Model United Nations (MUN)",
+    category: "leadership",
+    icon: "Globe",
+    description: "Simulating United Nations proceedings to debate global policy issues, practice diplomacy, and build international awareness.",
+    skills: ["Diplomacy", "Research", "Public speaking", "Negotiation", "Global awareness", "Position paper writing"],
+    careerConnections: [
+      { careerId: "corporate-lawyer", careerTitle: "Corporate Lawyer", relevance: "Negotiation and policy argumentation skills" },
+      { careerId: "product-manager", careerTitle: "Product Manager", relevance: "Stakeholder alignment and persuasion" },
+      { careerId: "sustainability-consultant", careerTitle: "Sustainability Consultant", relevance: "Global policy and international frameworks exposure" },
+      { careerId: "healthcare-administrator", careerTitle: "Healthcare Administrator", relevance: "WHO/health policy understanding" }
+    ]
+  },
+  {
+    id: "youth-parliament",
+    name: "Youth Parliament",
+    category: "leadership",
+    icon: "Landmark",
+    description: "Participating in structured parliamentary debates and legislative simulations to develop civic and governance skills.",
+    skills: ["Public speaking", "Critical thinking", "Civic awareness", "Argumentation", "Leadership"],
+    careerConnections: [
+      { careerId: "corporate-lawyer", careerTitle: "Corporate Lawyer", relevance: "Legal reasoning and legislative understanding" },
+      { careerId: "product-manager", careerTitle: "Product Manager", relevance: "Decision-making under structure" },
+      { careerId: "hospital-ceo", careerTitle: "Hospital CEO", relevance: "Governance and policy navigation" }
+    ]
+  },
+  {
+    id: "tedx-organizer",
+    name: "TEDx / Event Organizer",
+    category: "leadership",
+    icon: "Mic",
+    description: "Organizing TEDx events or large-scale conferences — managing speakers, logistics, branding, and audience experience.",
+    skills: ["Event management", "Leadership", "Communication", "Branding", "Project management", "Networking"],
+    careerConnections: [
+      { careerId: "sports-event-manager", careerTitle: "Sports Event Manager", relevance: "Direct large-scale event execution experience" },
+      { careerId: "product-manager", careerTitle: "Product Manager", relevance: "End-to-end project ownership" },
+      { careerId: "sports-marketing-manager", careerTitle: "Sports Marketing Manager", relevance: "Brand and audience engagement" }
+    ]
+  },
+  {
+    id: "ngo-volunteering",
+    name: "NGO & Community Development Work",
+    category: "leadership",
+    icon: "HeartHandshake",
+    description: "Volunteering with non-profits on education, health, or environment programs to create community impact.",
+    skills: ["Empathy", "Project management", "Community organizing", "Communication", "Social awareness"],
+    careerConnections: [
+      { careerId: "healthcare-administrator", careerTitle: "Healthcare Administrator", relevance: "Grassroots health program experience" },
+      { careerId: "sustainability-consultant", careerTitle: "Sustainability Consultant", relevance: "Community sustainability initiatives" },
+      { careerId: "instructional-designer", careerTitle: "Instructional Designer", relevance: "Educational outreach and program design" }
+    ]
+  },
+
+  // Academic
+  {
+    id: "economics-olympiad",
+    name: "Economics Olympiad",
+    category: "academic",
+    icon: "BarChart2",
+    description: "Competitive economics events testing microeconomics, macroeconomics, and data analysis under exam conditions.",
+    skills: ["Economic thinking", "Data analysis", "Critical reasoning", "Mathematics", "Research"],
+    careerConnections: [
+      { careerId: "sports-finance-analyst", careerTitle: "Sports Finance Analyst", relevance: "Quantitative financial reasoning" },
+      { careerId: "data-scientist", careerTitle: "Data Scientist", relevance: "Analytical and statistical foundations" },
+      { careerId: "health-economist", careerTitle: "Health Economist", relevance: "Economic modeling skills" }
+    ]
+  },
+  {
+    id: "quiz-club",
+    name: "Quiz Club & Knowledge Competitions",
+    category: "academic",
+    icon: "HelpCircle",
+    description: "Competitive quizzing across general knowledge, science, history, and current affairs at school and national level.",
+    skills: ["General knowledge", "Quick thinking", "Memory retention", "Research", "Teamwork"],
+    careerConnections: [
+      { careerId: "data-scientist", careerTitle: "Data Scientist", relevance: "Pattern recognition and broad domain knowledge" },
+      { careerId: "content-creator", careerTitle: "Content Creator", relevance: "Wide knowledge base for content creation" },
+      { careerId: "instructional-designer", careerTitle: "Instructional Designer", relevance: "Curriculum and knowledge structuring" }
+    ]
+  },
+  {
+    id: "writing-competition",
+    name: "Creative Writing & Essay Competitions",
+    category: "academic",
+    icon: "PenLine",
+    description: "Competing in essay writing, short story, or debate writing competitions at school or national level.",
+    skills: ["Writing", "Critical thinking", "Creativity", "Research", "Argumentation"],
+    careerConnections: [
+      { careerId: "content-creator", careerTitle: "Content Creator", relevance: "Strong writing foundation" },
+      { careerId: "digital-marketing-specialist", careerTitle: "Digital Marketing Specialist", relevance: "Copywriting and communication" },
+      { careerId: "corporate-lawyer", careerTitle: "Corporate Lawyer", relevance: "Legal writing and argumentation" }
+    ]
+  },
+
+  // Technology
+  {
+    id: "open-source",
+    name: "Open Source Contributing",
+    category: "technology",
+    icon: "GitBranch",
+    description: "Contributing code to open source projects on GitHub — fixing bugs, adding features, and collaborating globally.",
+    skills: ["Programming", "Collaboration", "Version control", "Code review", "Documentation"],
+    careerConnections: [
+      { careerId: "software-engineer", careerTitle: "Software Engineer", relevance: "Real-world collaborative coding experience" },
+      { careerId: "machine-learning-engineer", careerTitle: "Machine Learning Engineer", relevance: "Open source ML framework contribution" },
+      { careerId: "data-scientist", careerTitle: "Data Scientist", relevance: "Data tool development and collaboration" }
+    ]
+  },
+  {
+    id: "competitive-programming",
+    name: "Competitive Programming (LeetCode / Codeforces)",
+    category: "technology",
+    icon: "Terminal",
+    description: "Solving algorithmic problems on platforms like LeetCode, Codeforces, or CodeChef to sharpen programming skills.",
+    skills: ["Algorithms", "Data structures", "Problem solving", "Time complexity", "Programming"],
+    careerConnections: [
+      { careerId: "software-engineer", careerTitle: "Software Engineer", relevance: "Core CS fundamentals for technical interviews" },
+      { careerId: "machine-learning-engineer", careerTitle: "Machine Learning Engineer", relevance: "Mathematical and algorithmic thinking" },
+      { careerId: "data-scientist", careerTitle: "Data Scientist", relevance: "Optimization and algorithmic problem solving" }
+    ]
+  },
+  {
+    id: "ai-projects",
+    name: "AI/ML Personal Projects",
+    category: "technology",
+    icon: "BrainCircuit",
+    description: "Building personal AI/ML projects — from image classifiers to chatbots — and publishing them on GitHub or Hugging Face.",
+    skills: ["Machine learning", "Python", "Data preprocessing", "Model training", "Research"],
+    careerConnections: [
+      { careerId: "machine-learning-engineer", careerTitle: "Machine Learning Engineer", relevance: "Hands-on AI project portfolio" },
+      { careerId: "data-scientist", careerTitle: "Data Scientist", relevance: "Applied ML and data pipeline experience" },
+      { careerId: "health-informatics-specialist", careerTitle: "Health Informatics Specialist", relevance: "AI in healthcare applications" }
+    ]
+  },
+
+  // Arts
+  {
+    id: "classical-dance",
+    name: "Classical Dance (Bharatanatyam, Kathak, etc.)",
+    category: "arts",
+    icon: "Music4",
+    description: "Training and performing classical Indian dance forms, developing discipline, expression, and cultural knowledge.",
+    skills: ["Discipline", "Creativity", "Physical fitness", "Cultural awareness", "Performance"],
+    careerConnections: [
+      { careerId: "creative-director", careerTitle: "Creative Director", relevance: "Artistic expression and performance direction" },
+      { careerId: "content-creator", careerTitle: "Content Creator", relevance: "Performance and cultural content creation" },
+      { careerId: "ux-designer", careerTitle: "UX Designer", relevance: "Understanding human expression and emotion" }
+    ]
+  },
+  {
+    id: "photography",
+    name: "Photography Club",
+    category: "arts",
+    icon: "Camera",
+    description: "Practicing composition, lighting, and storytelling through photography across portrait, street, and nature genres.",
+    skills: ["Visual composition", "Creativity", "Attention to detail", "Storytelling", "Technical skills"],
+    careerConnections: [
+      { careerId: "ux-designer", careerTitle: "UX Designer", relevance: "Visual design and aesthetic eye" },
+      { careerId: "digital-artist", careerTitle: "Digital Artist", relevance: "Visual storytelling foundation" },
+      { careerId: "content-creator", careerTitle: "Content Creator", relevance: "Visual content creation skills" }
+    ]
+  },
+
+  // Sports
+  {
+    id: "chess",
+    name: "Chess (Competitive)",
+    category: "sports",
+    icon: "Crown",
+    description: "Playing chess competitively at school, district, or national level, developing strategic thinking and patience.",
+    skills: ["Strategic thinking", "Pattern recognition", "Patience", "Decision-making", "Focus"],
+    careerConnections: [
+      { careerId: "data-scientist", careerTitle: "Data Scientist", relevance: "Pattern recognition and strategic analysis" },
+      { careerId: "product-manager", careerTitle: "Product Manager", relevance: "Strategic planning and long-term thinking" },
+      { careerId: "sports-analytics-manager", careerTitle: "Sports Analytics Manager", relevance: "Game theory and performance optimization" }
+    ]
+  },
+  {
+    id: "cricket",
+    name: "Cricket (Competitive)",
+    category: "sports",
+    icon: "CircleDot",
+    description: "Playing competitive cricket at school or club level, developing teamwork, strategy, and athletic discipline.",
+    skills: ["Teamwork", "Strategy", "Physical fitness", "Leadership", "Discipline"],
+    careerConnections: [
+      { careerId: "sports-manager", careerTitle: "Sports Manager", relevance: "Team dynamics and sports operations" },
+      { careerId: "sports-marketing-manager", careerTitle: "Sports Marketing Manager", relevance: "Athlete and fan perspective" },
+      { careerId: "athletic-trainer", careerTitle: "Athletic Trainer", relevance: "Physical conditioning knowledge" }
+    ]
+  },
+
+  // Business
+  {
+    id: "case-competition",
+    name: "Business Case Competition",
+    category: "business",
+    icon: "Lightbulb",
+    description: "Competing in business case competitions by solving real company problems with structured analysis and presentations.",
+    skills: ["Business analysis", "Presentation", "Teamwork", "Problem solving", "Financial modeling"],
+    careerConnections: [
+      { careerId: "product-manager", careerTitle: "Product Manager", relevance: "Business problem solving and stakeholder pitching" },
+      { careerId: "tech-entrepreneur", careerTitle: "Tech Entrepreneur", relevance: "Real-world business challenge experience" },
+      { careerId: "sports-finance-analyst", careerTitle: "Sports Finance Analyst", relevance: "Financial analysis and case structuring" }
+    ]
+  },
+  {
+    id: "mock-stock",
+    name: "Mock Stock Market / Finance Club",
+    category: "business",
+    icon: "TrendingUp",
+    description: "Participating in simulated stock market competitions to learn investing, portfolio management, and economic analysis.",
+    skills: ["Financial analysis", "Risk management", "Research", "Data interpretation", "Decision-making"],
+    careerConnections: [
+      { careerId: "sports-finance-analyst", careerTitle: "Sports Finance Analyst", relevance: "Financial modeling and market analysis" },
+      { careerId: "data-product-manager", careerTitle: "Data Product Manager", relevance: "Data-driven decision making" },
+      { careerId: "health-economist", careerTitle: "Health Economist", relevance: "Economic modeling and analysis" }
+    ]
+  },
 ];
 
 export function getExtracurricularsByCategory(categoryId: string): Extracurricular[] {

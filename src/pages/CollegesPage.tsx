@@ -31,7 +31,7 @@ export default function CollegesPage() {
           </div>
 
           {/* Countries Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 max-w-6xl mx-auto">
             {TOP_COUNTRIES.map((country, index) => (
               <ScrollReveal key={country.id} delay={index * 80}>
                 <Link to={`/colleges/${country.id}`}>

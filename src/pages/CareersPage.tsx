@@ -108,7 +108,7 @@ export default function CareersPage() {
               <h2 className="font-display text-2xl font-bold mb-6">
                 🎯 Best Matches for <span className="gradient-text">{interestLabels.join(" & ")}</span>
               </h2>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredMatched.slice(0, showMoreMatched).map((career, index) => (
                   <CareerCard
                     key={career.id}
@@ -147,7 +147,7 @@ export default function CareersPage() {
               <h2 className="font-display text-2xl font-bold mb-6">
                 🌍 Explore All Careers
               </h2>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredOther.slice(0, showMoreOther).map((career, index) => (
                   <CareerCard
                     key={career.id}
