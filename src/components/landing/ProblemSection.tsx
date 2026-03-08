@@ -78,7 +78,7 @@ export function ProblemSection() {
         {/* Our Promise card */}
         <ScrollReveal delay={200}>
           <div className="max-w-3xl mx-auto mt-12 sm:mt-16">
-            <div className="glass-card rounded-2xl p-6 sm:p-10 flex flex-col sm:flex-row items-start gap-6">
+            <div className="promise-box glass-card rounded-2xl p-6 sm:p-10 flex flex-col sm:flex-row items-start gap-6">
               <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-primary-hover flex items-center justify-center">
                 <Shield className="h-7 w-7 text-primary-foreground" />
               </div>
