@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { TOP_COUNTRIES } from "@/data/colleges";
 import { Globe, Menu, X, Award, User, Search, Instagram } from "lucide-react";
+import logoImg from "@/assets/logo.png";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { AuthModal } from "@/components/auth/AuthModal";
@@ -41,13 +42,7 @@ export function Header() {
         <div className="flex items-center justify-between gap-3">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 flex-shrink-0">
-            {/* Compass SVG */}
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <circle cx="14" cy="14" r="13" stroke="var(--primary)" strokeWidth="1.5" />
-              <path d="M14 3 L15.5 12 L14 11 L12.5 12 Z" fill="var(--primary)" />
-              <path d="M14 25 L15.5 16 L14 17 L12.5 16 Z" fill="var(--foreground)" />
-              <circle cx="14" cy="14" r="2" fill="var(--primary)" />
-            </svg>
+            <img src={logoImg} alt="Career Compass" className="h-7 w-7 rounded-full object-cover" />
             <span className="font-display text-lg sm:text-xl tracking-tight">
               Career Compass
             </span>
