@@ -166,6 +166,10 @@
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
+  .dark body {
+    background: radial-gradient(ellipse at 50% 0%, #1A1208 0%, #0D0B09 60%);
+  }
+
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Instrument Serif', serif;
     font-weight: 400;
@@ -220,6 +224,29 @@
     pointer-events: none;
     z-index: 9998;
     opacity: 0.65;
+  }
+
+  .dark .noise-overlay {
+    opacity: 0.9;
+  }
+
+  /* Dark mode navbar glass */
+  .dark .glass {
+    background: var(--navbar-bg);
+    box-shadow: var(--navbar-shadow);
+  }
+
+  /* Dark mode hero glow */
+  .dark .hero-glow {
+    background: radial-gradient(ellipse, rgba(255,140,66,0.18) 0%, rgba(255,100,30,0.06) 45%, transparent 70%);
+    width: 900px;
+    height: 900px;
+  }
+
+  /* Dark mode promise box */
+  .dark .promise-box {
+    background: var(--promise-bg);
+    box-shadow: var(--promise-glow);
   }
 
   /* Tubelight glow for active nav */
