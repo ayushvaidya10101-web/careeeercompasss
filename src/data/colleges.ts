@@ -2886,13 +2886,12 @@ export function getCollegesForCareer(careerTags: string[]): College[] {
   ).sort((a, b) => a.qsRank - b.qsRank);
 }
 
-// Import Indian colleges dynamically
+// Import Indian colleges from dedicated module
 function getIndianCollegesFromData(): College[] {
-  // Indian Colleges - QS World University Rankings 2024
-  // Source: https://www.topuniversities.com/world-university-rankings?region=Asia&countries=in
-  return [
-    {
-      id: "iit-bombay",
+  // Use the dedicated indianColleges.ts which has all entries including newer ones
+  const { INDIAN_COLLEGES } = require('./indianColleges');
+  return INDIAN_COLLEGES as College[];
+}
       name: "Indian Institute of Technology Bombay (IIT Bombay)",
       country: "india",
       city: "Mumbai, Maharashtra",

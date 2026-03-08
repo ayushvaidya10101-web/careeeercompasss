@@ -37,7 +37,33 @@ export function CareerCard({ career, selectedInterests, workStyle, values, index
     return badges;
   };
 
+  // Get the intersection combination label
+  const getIntersectionLabel = (): string | null => {
+    if (career.interestCombinations.length === 0) return null;
+    // Pick the first combination that matches the user's selected interests
+    for (const combo of career.interestCombinations) {
+      const parts = combo.split("+");
+      if (parts.length === 2) {
+        const labelA = INTEREST_CATEGORIES.find(c => c.id === parts[0])?.label?.split(" ")[0];
+        const labelB = INTEREST_CATEGORIES.find(c => c.id === parts[1])?.label?.split(" ")[0];
+        if (labelA && labelB) {
+          // Prefer combos matching selected interests
+          if (parts.every(p => selectedInterests.includes(p))) {
+            return `${labelA} × ${labelB}`;
+          }
+        }
+      }
+    }
+    // Fallback: show first combo
+    const parts = career.interestCombinations[0].split("+");
+    const labelA = INTEREST_CATEGORIES.find(c => c.id === parts[0])?.label?.split(" ")[0];
+    const labelB = INTEREST_CATEGORIES.find(c => c.id === parts[1])?.label?.split(" ")[0];
+    if (labelA && labelB) return `${labelA} × ${labelB}`;
+    return null;
+  };
+
   const matchBadges = getMatchBadges();
+  const intersectionLabel = getIntersectionLabel();
 
   return (
     <Link to={`/career/${career.id}`}>
@@ -47,6 +73,15 @@ export function CareerCard({ career, selectedInterests, workStyle, values, index
         style={{ animationDelay: `${index * 0.03}s` }}
       >
         <CardContent className="p-6">
+          {/* Intersection Combination Badge */}
+          {intersectionLabel && (
+            <div className="mb-2">
+              <Badge variant="outline" className="text-[10px] font-medium border-primary/30 text-primary">
+                {intersectionLabel}
+              </Badge>
+            </div>
+          )}
+
           {/* Match Badges */}
           <div className="flex flex-wrap gap-1.5 mb-4">
             {matchBadges.slice(0, 3).map((badge, i) => (
