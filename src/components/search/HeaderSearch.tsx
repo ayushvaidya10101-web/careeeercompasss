@@ -157,7 +157,7 @@ export function HeaderSearch() {
 
       {/* Expanded Search */}
       {isOpen && (
-        <div className="absolute top-0 right-0 w-[320px] sm:w-[400px] z-50">
+        <div className="fixed inset-x-4 top-16 sm:absolute sm:inset-auto sm:top-0 sm:right-0 sm:w-[400px] z-50">
           <div className="bg-card border border-border rounded-lg shadow-lg overflow-hidden">
             {/* Search Input */}
             <div className="flex items-center gap-2 px-3 border-b border-border">

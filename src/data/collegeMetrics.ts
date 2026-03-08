@@ -202,6 +202,44 @@ export const COLLEGE_METRICS: Record<string, CollegeMetrics> = {
   "st-gallen": { learningExperience: 86, employability: 93, globalEngagement: 90, sustainability: 78, researchOutput: "High", internationalStudents: "38%" },
   "fribourg": { learningExperience: 78, employability: 78, globalEngagement: 78, sustainability: 76, researchOutput: "Moderate", internationalStudents: "20%" },
   "neuchatel": { learningExperience: 77, employability: 76, globalEngagement: 76, sustainability: 74, researchOutput: "Moderate", internationalStudents: "22%" },
+
+  // === New USA ===
+  "vanderbilt": { learningExperience: 90, employability: 92, globalEngagement: 75, sustainability: 78, researchOutput: "Very High", internationalStudents: "14%" },
+  "rice": { learningExperience: 92, employability: 91, globalEngagement: 74, sustainability: 79, researchOutput: "Very High", internationalStudents: "28%" },
+  "ut-austin": { learningExperience: 86, employability: 93, globalEngagement: 72, sustainability: 80, researchOutput: "Very High", internationalStudents: "11%" },
+  "boston-university": { learningExperience: 84, employability: 89, globalEngagement: 80, sustainability: 77, researchOutput: "High", internationalStudents: "25%" },
+  "uw-madison": { learningExperience: 85, employability: 90, globalEngagement: 73, sustainability: 82, researchOutput: "Very High", internationalStudents: "13%" },
+
+  // === New Australia ===
+  "newcastle-au": { learningExperience: 78, employability: 82, globalEngagement: 74, sustainability: 76, researchOutput: "High", internationalStudents: "22%" },
+  "unisa": { learningExperience: 74, employability: 80, globalEngagement: 72, sustainability: 74, researchOutput: "High", internationalStudents: "25%" },
+  "bond": { learningExperience: 76, employability: 79, globalEngagement: 70, sustainability: 68, researchOutput: "Moderate", internationalStudents: "40%" },
+
+  // === Middle East ===
+  "kaust": { learningExperience: 85, employability: 82, globalEngagement: 80, sustainability: 78, researchOutput: "Very High", internationalStudents: "40%" },
+  "kfupm": { learningExperience: 78, employability: 80, globalEngagement: 60, sustainability: 68, researchOutput: "High", internationalStudents: "8%" },
+  "aub": { learningExperience: 80, employability: 82, globalEngagement: 75, sustainability: 70, researchOutput: "High", internationalStudents: "20%" },
+  "university-dubai": { learningExperience: 70, employability: 75, globalEngagement: 68, sustainability: 62, researchOutput: "Moderate", internationalStudents: "35%" },
+  "khalifa-university": { learningExperience: 82, employability: 84, globalEngagement: 76, sustainability: 74, researchOutput: "Very High", internationalStudents: "30%" },
+  "qatar-university": { learningExperience: 76, employability: 78, globalEngagement: 65, sustainability: 70, researchOutput: "High", internationalStudents: "15%" },
+  "aus": { learningExperience: 78, employability: 80, globalEngagement: 72, sustainability: 68, researchOutput: "High", internationalStudents: "38%" },
+  "university-jordan": { learningExperience: 72, employability: 74, globalEngagement: 58, sustainability: 64, researchOutput: "High", internationalStudents: "12%" },
+  "auc": { learningExperience: 79, employability: 80, globalEngagement: 72, sustainability: 66, researchOutput: "High", internationalStudents: "10%" },
+  "tel-aviv-university": { learningExperience: 82, employability: 86, globalEngagement: 75, sustainability: 72, researchOutput: "Very High", internationalStudents: "8%" },
+
+  // === South Korea ===
+  "snu": { learningExperience: 85, employability: 90, globalEngagement: 72, sustainability: 78, researchOutput: "Very High", internationalStudents: "12%" },
+  "kaist": { learningExperience: 84, employability: 88, globalEngagement: 70, sustainability: 76, researchOutput: "Very High", internationalStudents: "15%" },
+  "yonsei": { learningExperience: 82, employability: 86, globalEngagement: 74, sustainability: 74, researchOutput: "Very High", internationalStudents: "14%" },
+  "korea-university": { learningExperience: 81, employability: 85, globalEngagement: 72, sustainability: 73, researchOutput: "Very High", internationalStudents: "12%" },
+  "postech": { learningExperience: 85, employability: 84, globalEngagement: 68, sustainability: 72, researchOutput: "Very High", internationalStudents: "10%" },
+
+  // === Netherlands ===
+  "tu-delft": { learningExperience: 84, employability: 90, globalEngagement: 78, sustainability: 78, researchOutput: "Very High", internationalStudents: "30%" },
+  "uva": { learningExperience: 82, employability: 86, globalEngagement: 80, sustainability: 76, researchOutput: "Very High", internationalStudents: "20%" },
+  "tue": { learningExperience: 80, employability: 85, globalEngagement: 75, sustainability: 74, researchOutput: "High", internationalStudents: "25%" },
+  "erasmus": { learningExperience: 80, employability: 87, globalEngagement: 78, sustainability: 74, researchOutput: "Very High", internationalStudents: "22%" },
+  "utrecht": { learningExperience: 82, employability: 84, globalEngagement: 76, sustainability: 76, researchOutput: "Very High", internationalStudents: "15%" },
 };
 
 // Merge metrics into a college object
