@@ -1,6 +1,7 @@
 // QS World University Rankings data - sourced from TopUniversities.com
 // Rankings are accurate as of QS World University Rankings 2024
 import { applyMetricsToAll } from './collegeMetrics';
+import { INDIAN_COLLEGES } from './indianColleges';
 
 export interface College {
   id: string;
@@ -2893,8 +2894,6 @@ function getIndianCollegesFromData(): College[] {
   return _indianColleges;
 }
 
-// We import at module level for ESM compatibility
-import { INDIAN_COLLEGES } from './indianColleges';
 const _indianColleges: College[] = INDIAN_COLLEGES as College[];
 
 // Get colleges by country including India (with QS metrics)
