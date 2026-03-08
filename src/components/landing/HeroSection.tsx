@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const ROTATING_WORDS = ["Learn", "Be Aware", "Understand", "Discover"];
 const ROTATION_INTERVAL = 3000;
@@ -9,6 +9,7 @@ const ROTATION_INTERVAL = 3000;
 export function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const heroRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -21,34 +22,51 @@ export function HeroSection() {
     return () => clearInterval(interval);
   }, []);
 
-  return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-background via-background to-muted/30">
-      {/* Background Effects — hidden on mobile for perf */}
-      <div className="absolute inset-0 overflow-hidden hidden sm:block">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl animate-float" style={{ animationDelay: "2s" }} />
-      </div>
+  // Parallax
+  useEffect(() => {
+    const handleScroll = () => {
+      if (heroRef.current) {
+        heroRef.current.style.transform = `translateY(${window.scrollY * 0.22}px)`;
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-      <div className="container mx-auto px-4 pt-20 sm:pt-24 pb-16 sm:pb-20 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Rotating Headline */}
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Radial orange glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/8 rounded-full blur-[120px] pointer-events-none" />
+
+      <div ref={heroRef} className="container mx-auto px-4 pt-24 sm:pt-28 pb-16 sm:pb-20 relative z-10">
+        <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
+          {/* Pill badge */}
+          <div
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm mb-8 animate-slide-up"
+            style={{ animationDelay: "0.1s" }}
+          >
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+            <span className="text-muted-foreground">500+ careers · 250+ colleges · 10+ countries</span>
+          </div>
+
+          {/* Headline */}
           <h1
-            className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-5 sm:mb-8 animate-slide-up"
+            className="font-display text-[clamp(50px,6.8vw,90px)] leading-[0.95] mb-6 sm:mb-8 animate-slide-up"
             style={{ animationDelay: "0.3s" }}
           >
-            <span
-              className="inline-block gradient-text transition-opacity duration-700 ease-in-out"
-              style={{ opacity: isTransitioning ? 0 : 1 }}
+            <em
+              className="inline-block not-italic text-primary transition-opacity duration-700 ease-in-out"
+              style={{ opacity: isTransitioning ? 0 : 1, fontStyle: 'italic' }}
             >
               {ROTATING_WORDS[currentIndex]}
-            </span>{" "}
+            </em>{" "}
             More About{" "}
             <span className="text-foreground">Careers</span>
           </h1>
 
-          {/* Subheading */}
+          {/* Subtext */}
           <p
-            className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-8 sm:mb-12 animate-slide-up"
+            className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 sm:mb-14 font-light animate-slide-up"
             style={{ animationDelay: "0.5s" }}
           >
             Explore 1000+ career paths with accurate, sourced information.
@@ -57,60 +75,50 @@ export function HeroSection() {
 
           {/* CTA Buttons */}
           <div
-            className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-w-lg mx-auto animate-slide-up"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 animate-slide-up"
             style={{ animationDelay: "0.7s" }}
           >
-            <Button asChild variant="hero" size="lg" className="min-h-[48px]">
+            <Button asChild size="lg" className="rounded-full bg-gradient-to-r from-primary to-primary-hover text-primary-foreground px-8 shadow-glow hover:shadow-card-hover min-h-[48px]">
               <Link to="/interests">
                 Explore Careers
                 <ArrowRight className="h-5 w-5 ml-2" />
               </Link>
             </Button>
-            <Button asChild variant="hero" size="lg" className="min-h-[48px]">
+            <Button asChild variant="outline" size="lg" className="rounded-full glass min-h-[48px]">
               <Link to="/colleges">
                 Explore Colleges
-                <ArrowRight className="h-5 w-5 ml-2" />
               </Link>
             </Button>
-            <Button asChild variant="hero" size="lg" className="min-h-[48px]">
+            <Button asChild variant="outline" size="lg" className="rounded-full glass min-h-[48px]">
               <Link to="/extracurriculars">
                 Extracurriculars
-                <ArrowRight className="h-5 w-5 ml-2" />
               </Link>
             </Button>
-            <Button asChild variant="hero" size="lg" className="min-h-[48px]">
+            <Button asChild variant="outline" size="lg" className="rounded-full glass min-h-[48px]">
               <Link to="/careers">
-                View All Careers
-                <ArrowRight className="h-5 w-5 ml-2" />
+                View All
               </Link>
             </Button>
           </div>
 
           {/* Stats */}
           <div
-            className="grid grid-cols-3 gap-4 sm:gap-8 mt-12 sm:mt-20 pt-8 sm:pt-10 border-t border-border/50 max-w-lg mx-auto animate-fade-in"
+            className="flex items-center gap-8 sm:gap-12 mt-16 sm:mt-24 pt-8 border-t border-primary/15 animate-fade-in"
             style={{ animationDelay: "1.0s" }}
           >
             <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-display font-bold gradient-text">500+</div>
-              <div className="text-xs sm:text-sm text-muted-foreground">Careers</div>
+              <div className="text-3xl sm:text-4xl font-display text-primary">500+</div>
+              <div className="text-xs sm:text-sm text-muted-foreground mt-1">Careers</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-display font-bold gradient-text">250+</div>
-              <div className="text-xs sm:text-sm text-muted-foreground">Colleges</div>
+              <div className="text-3xl sm:text-4xl font-display text-primary">250+</div>
+              <div className="text-xs sm:text-sm text-muted-foreground mt-1">Colleges</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-display font-bold gradient-text">+10</div>
-              <div className="text-xs sm:text-sm text-muted-foreground">Countries</div>
+              <div className="text-3xl sm:text-4xl font-display text-primary">+10</div>
+              <div className="text-xs sm:text-sm text-muted-foreground mt-1">Countries</div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden sm:block">
-        <div className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex items-start justify-center p-2">
-          <div className="w-1.5 h-3 rounded-full bg-muted-foreground/50" />
         </div>
       </div>
     </section>
