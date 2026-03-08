@@ -79,26 +79,26 @@
   }
 
   .dark {
-    --background: #0D0B09;
+    --background: #0D0F14;
     --foreground: #F5EFE6;
 
-    --card: rgba(20, 15, 10, 0.75);
+    --card: rgba(14, 18, 26, 0.75);
     --card-foreground: #F5EFE6;
 
-    --popover: rgba(22, 17, 12, 0.82);
+    --popover: rgba(14, 18, 26, 0.82);
     --popover-foreground: #F5EFE6;
 
     --primary: #FF8C42;
     --primary-hover: #FFAA66;
-    --primary-foreground: #0D0B09;
+    --primary-foreground: #0D0F14;
 
     --secondary: #44D4C8;
-    --secondary-foreground: #0D0B09;
+    --secondary-foreground: #0D0F14;
 
-    --muted: #1A1208;
+    --muted: #131722;
     --muted-foreground: #A8967E;
 
-    --accent: #1A1208;
+    --accent: #131722;
     --accent-foreground: #F5EFE6;
 
     --destructive: #DC3545;
@@ -113,7 +113,7 @@
     --brand-purple: #D4A853;
     --brand-pink: #FFAA66;
 
-    --glass-bg: rgba(22, 17, 12, 0.82);
+    --glass-bg: rgba(14, 18, 26, 0.82);
     --glass-border: rgba(255, 140, 66, 0.18);
 
     --shadow-card: 0 2px 20px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.03) inset;
@@ -129,21 +129,21 @@
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
     --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.45);
 
-    --sidebar-background: #0D0B09;
+    --sidebar-background: #0D0F14;
     --sidebar-foreground: #F5EFE6;
     --sidebar-primary: #FF8C42;
-    --sidebar-primary-foreground: #0D0B09;
+    --sidebar-primary-foreground: #0D0F14;
     --sidebar-accent: #44D4C8;
-    --sidebar-accent-foreground: #0D0B09;
+    --sidebar-accent-foreground: #0D0F14;
     --sidebar-border: rgba(255, 140, 66, 0.13);
     --sidebar-ring: #FF8C42;
 
     /* Dark mode navbar */
-    --navbar-bg: rgba(13, 11, 9, 0.92);
+    --navbar-bg: rgba(13, 15, 20, 0.92);
     --navbar-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255, 255, 255, 0.03) inset;
 
     /* Dark mode promise box */
-    --promise-bg: rgba(18, 13, 8, 0.85);
+    --promise-bg: rgba(12, 15, 22, 0.85);
     --promise-glow: none;
   }
 }
@@ -167,7 +167,7 @@
   }
 
   .dark body {
-    background: #0D0B09;
+    background: #0D0F14;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -206,6 +206,7 @@
   .dark .glass-card:hover {
     border-color: rgba(255, 140, 66, 0.28);
     box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
+    background: rgba(14, 18, 26, 0.85);
   }
 
   /* Gradient text */
@@ -232,7 +233,7 @@
   }
 
   .dark .noise-overlay {
-    opacity: 0.18;
+    opacity: 0.35;
   }
 
   /* Dark mode navbar glass */
