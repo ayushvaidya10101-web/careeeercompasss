@@ -33,11 +33,11 @@ export interface CollegeDetail extends College {
 }
 
 // Top 11 countries for "Colleges Around the World" - including India
-export const TOP_COUNTRIES = [
-  { id: "india", name: "India", flag: "🇮🇳", collegeCount: 20 },
-  { id: "usa", name: "United States", flag: "🇺🇸", collegeCount: 20 },
+export const TOP_COUNTRIES: { id: string; name: string; flag: string; collegeCount: number }[] = [
+  { id: "india", name: "India", flag: "🇮🇳", collegeCount: 32 },
+  { id: "usa", name: "United States", flag: "🇺🇸", collegeCount: 25 },
   { id: "uk", name: "United Kingdom", flag: "🇬🇧", collegeCount: 20 },
-  { id: "australia", name: "Australia", flag: "🇦🇺", collegeCount: 20 },
+  { id: "australia", name: "Australia", flag: "🇦🇺", collegeCount: 23 },
   { id: "canada", name: "Canada", flag: "🇨🇦", collegeCount: 20 },
   { id: "germany", name: "Germany", flag: "🇩🇪", collegeCount: 20 },
   { id: "singapore", name: "Singapore", flag: "🇸🇬", collegeCount: 10 },
@@ -45,7 +45,10 @@ export const TOP_COUNTRIES = [
   { id: "japan", name: "Japan", flag: "🇯🇵", collegeCount: 20 },
   { id: "china", name: "China", flag: "🇨🇳", collegeCount: 20 },
   { id: "switzerland", name: "Switzerland", flag: "🇨🇭", collegeCount: 10 },
-] as const;
+  { id: "middle-east", name: "Middle East", flag: "🌍", collegeCount: 10 },
+  { id: "south-korea", name: "South Korea", flag: "🇰🇷", collegeCount: 5 },
+  { id: "netherlands", name: "Netherlands", flag: "🇳🇱", collegeCount: 5 },
+];
 
 // QS World University Rankings 2024 - Top 20 per country
 // Source: https://www.topuniversities.com/world-university-rankings
