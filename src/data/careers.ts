@@ -9,6 +9,9 @@ import { BUSINESS_CAREERS } from './businessCareers';
 import { VOCATIONAL_CAREERS } from './vocationalCareers';
 import { ADDITIONAL_INTERSECTION_CAREERS } from './additionalIntersectionCareers';
 import { EXTRACURRICULAR_CAREERS } from './extracurricularCareers';
+import { LEGAL_CAREERS } from './legalCareers';
+import { SCIENCE_CAREERS } from './scienceCareers';
+import { CREATIVE_CAREERS } from './creativeCareers';
 export interface Career {
   id: string;
   title: string;
@@ -140,6 +143,14 @@ export const INTERSECTION_CAREERS: Record<string, string[]> = {
     "hospitality-consultant", "cruise-director", "resort-manager", "catering-business-owner",
     "destination-marketing-manager", "travel-agency-owner"
   ],
+  "law+technology": ["legal-tech-consultant", "ip-attorney", "cybersecurity-analyst", "corporate-lawyer"],
+  "science+healthcare": ["neuroscientist", "geneticist", "biotechnologist", "pharmacist", "public-health-specialist"],
+  "arts+engineering": ["architect", "interior-designer", "game-developer", "3d-modeler"],
+  "education+business": ["corporate-trainer", "edtech-product-manager", "hr-manager", "instructional-designer"],
+  "engineering+technology": ["aerospace-engineer", "biomedical-engineer", "robotics-researcher", "machine-learning-engineer"],
+  "hospitality+technology": ["travel-manager", "digital-marketing-specialist", "social-media-manager", "restaurant-owner"],
+  "sports+education": ["athletic-director", "instructional-designer", "sports-psychologist", "coaching-mentoring"],
+  "media+business": ["sports-marketing-manager", "creative-director", "digital-marketing-specialist", "content-strategist"],
 };
 
 // Master career database - structured for fast filtering
@@ -846,7 +857,10 @@ export function getAllCareers(): Career[] {
     ...BUSINESS_CAREERS,
     ...VOCATIONAL_CAREERS,
     ...ADDITIONAL_INTERSECTION_CAREERS,
-    ...EXTRACURRICULAR_CAREERS
+    ...EXTRACURRICULAR_CAREERS,
+    ...LEGAL_CAREERS,
+    ...SCIENCE_CAREERS,
+    ...CREATIVE_CAREERS
   ];
   const seen = new Set<string>();
   return all.filter(career => {
