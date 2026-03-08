@@ -32,7 +32,6 @@ export default function CareersPage() {
     INTEREST_CATEGORIES.find(cat => cat.id === id)?.label || id
   );
 
-  // Get matched careers (interest intersection) and remaining careers
   const { matchedCareers, otherCareers } = useMemo(() => {
     const intersectionCareers = filterCareersByIntersection(interests);
     const intersectionIds = new Set(intersectionCareers.map(c => c.id));
@@ -40,14 +39,12 @@ export default function CareersPage() {
     const allCareers = getAllCareers();
     const remaining = allCareers.filter(c => !intersectionIds.has(c.id));
     
-    // Apply preference scoring
     const scoredMatched = applyPreferenceScoring(intersectionCareers, { workStyle, values, environment });
     const scoredOther = applyPreferenceScoring(remaining, { workStyle, values, environment });
     
     return { matchedCareers: scoredMatched, otherCareers: scoredOther };
   }, [interests, workStyle, values, environment]);
 
-  // Apply search filter
   const filterBySearch = (careers: typeof matchedCareers) => {
     if (!searchQuery.trim()) return careers;
     const query = searchQuery.toLowerCase();
@@ -67,28 +64,28 @@ export default function CareersPage() {
       <Header />
       <main id="main-content" className="pt-28 pb-20">
         <div className="container mx-auto px-4">
-          <Link to="/interests" className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary mb-8">
+          <Link to="/interests" className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary mb-8 text-sm">
             <ArrowLeft className="h-4 w-4" />
             Change Interests
           </Link>
 
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h1 className="font-display text-4xl font-bold mb-4">
-              Career <span className="gradient-text">Exploration</span>
+            <h1 className="font-display text-3xl sm:text-5xl mb-4">
+              Career <em className="text-primary">Exploration</em>
             </h1>
-            <p className="text-lg text-muted-foreground mb-2">
+            <p className="text-muted-foreground mb-2">
               Showing careers at the intersection of{" "}
               <span className="font-semibold text-primary">{interestLabels.join(" & ")}</span>
             </p>
             <p className="text-sm text-muted-foreground">
-              Found {filteredMatched.length} matched careers • {filteredMatched.length + filteredOther.length} total • This is for exploration only.
+              Found {filteredMatched.length} matched careers • {filteredMatched.length + filteredOther.length} total
             </p>
           </div>
 
           {/* Search Bar */}
           <div className="max-w-4xl mx-auto mb-10">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="Search careers by title, description, or tags..."
                 value={searchQuery}
@@ -97,18 +94,18 @@ export default function CareersPage() {
                   setShowMoreMatched(INITIAL_SHOW);
                   setShowMoreOther(INITIAL_SHOW);
                 }}
-                className="pl-10"
+                className="pl-11 glass rounded-full min-h-[48px] border-border focus:border-primary focus:ring-primary/20"
               />
             </div>
           </div>
 
-          {/* Best Matches Section */}
+          {/* Best Matches */}
           {filteredMatched.length > 0 && (
             <section className="max-w-6xl mx-auto mb-16">
-              <h2 className="font-display text-2xl font-bold mb-6">
-                🎯 Best Matches for <span className="gradient-text">{interestLabels.join(" & ")}</span>
+              <h2 className="font-display text-2xl sm:text-3xl mb-6">
+                Best Matches for <em className="text-primary">{interestLabels.join(" & ")}</em>
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 {filteredMatched.slice(0, showMoreMatched).map((career, index) => (
                   <CareerCard
                     key={career.id}
@@ -124,10 +121,10 @@ export default function CareersPage() {
                 <div className="text-center mt-8">
                   <Button
                     variant="outline"
+                    className="rounded-full"
                     onClick={() => setShowMoreMatched(prev => prev + LOAD_MORE_COUNT)}
-                    className="gap-2"
                   >
-                    <ChevronDown className="h-4 w-4" />
+                    <ChevronDown className="h-4 w-4 mr-2" />
                     Show More ({filteredMatched.length - showMoreMatched} remaining)
                   </Button>
                 </div>
@@ -141,13 +138,13 @@ export default function CareersPage() {
             </div>
           )}
 
-          {/* Explore More Section */}
+          {/* Explore More */}
           {filteredOther.length > 0 && (
             <section className="max-w-6xl mx-auto mb-12">
-              <h2 className="font-display text-2xl font-bold mb-6">
-                🌍 Explore All Careers
+              <h2 className="font-display text-2xl sm:text-3xl mb-6">
+                Explore All Careers
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 {filteredOther.slice(0, showMoreOther).map((career, index) => (
                   <CareerCard
                     key={career.id}
@@ -163,10 +160,10 @@ export default function CareersPage() {
                 <div className="text-center mt-8">
                   <Button
                     variant="outline"
+                    className="rounded-full"
                     onClick={() => setShowMoreOther(prev => prev + LOAD_MORE_COUNT)}
-                    className="gap-2"
                   >
-                    <ChevronDown className="h-4 w-4" />
+                    <ChevronDown className="h-4 w-4 mr-2" />
                     Show More ({filteredOther.length - showMoreOther} remaining)
                   </Button>
                 </div>

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -45,14 +44,14 @@ export default function WorkStylePage() {
               <span className="text-sm font-medium text-primary">Step 1</span>
               <span className="text-sm text-muted-foreground">of 3</span>
             </div>
-            <div className="h-2 bg-muted rounded-full overflow-hidden">
-              <div className="h-full bg-primary rounded-full transition-all" style={{ width: "33%" }} />
+            <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+              <div className="h-full bg-gradient-to-r from-primary to-primary-hover rounded-full transition-all" style={{ width: "33%" }} />
             </div>
           </div>
 
           <div className="max-w-2xl mx-auto text-center mb-10">
-            <h1 className="font-display text-4xl font-bold mb-4">
-              How do you prefer to <span className="gradient-text">work</span>?
+            <h1 className="font-display text-3xl sm:text-4xl mb-4">
+              How do you prefer to <em className="text-primary">work</em>?
             </h1>
             <p className="text-muted-foreground">
               Select the work style that appeals to you most. This helps rank careers that match your personality.
@@ -60,27 +59,30 @@ export default function WorkStylePage() {
           </div>
 
           <div className="max-w-2xl mx-auto">
-            <Card variant="gradient">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="p-2 rounded-lg bg-primary/10">
-                    <Briefcase className="h-5 w-5 text-primary" />
-                  </div>
-                  <h2 className="font-display text-xl font-semibold">Work Style</h2>
+            <div className="glass-card rounded-2xl p-6">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2 rounded-xl bg-primary/10">
+                  <Briefcase className="h-5 w-5 text-primary" />
                 </div>
-                <RadioGroup value={workStyle} onValueChange={setWorkStyle} className="space-y-3">
-                  {WORK_STYLES.map((style) => (
-                    <div key={style.id} className="flex items-start space-x-3 p-3 rounded-lg hover:bg-muted/50 transition-colors">
-                      <RadioGroupItem value={style.id} id={`work-${style.id}`} className="mt-1" />
-                      <Label htmlFor={`work-${style.id}`} className="flex-1 cursor-pointer">
-                        <span className="font-medium block">{style.label}</span>
-                        <span className="text-sm text-muted-foreground">{style.description}</span>
-                      </Label>
-                    </div>
-                  ))}
-                </RadioGroup>
-              </CardContent>
-            </Card>
+                <h2 className="font-display text-xl">Work Style</h2>
+              </div>
+              <RadioGroup value={workStyle} onValueChange={setWorkStyle} className="space-y-2">
+                {WORK_STYLES.map((style) => (
+                  <div
+                    key={style.id}
+                    className={`flex items-start space-x-3 p-3 rounded-xl transition-all duration-200 cursor-pointer ${
+                      workStyle === style.id ? "bg-primary/5 border-l-3 border-l-primary" : "hover:bg-muted/50"
+                    }`}
+                  >
+                    <RadioGroupItem value={style.id} id={`work-${style.id}`} className="mt-1" />
+                    <Label htmlFor={`work-${style.id}`} className="flex-1 cursor-pointer">
+                      <span className="font-medium block">{style.label}</span>
+                      <span className="text-sm text-muted-foreground">{style.description}</span>
+                    </Label>
+                  </div>
+                ))}
+              </RadioGroup>
+            </div>
 
             <div className="text-center pt-8">
               <Button variant="hero" size="xl" disabled={!workStyle} onClick={handleContinue}>
