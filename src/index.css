@@ -117,13 +117,13 @@
     --glass-border: rgba(255, 140, 66, 0.18);
 
     --shadow-card: 0 2px 20px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.03) inset;
-    --shadow-card-hover: 0 16px 48px rgba(0, 0, 0, 0.55), 0 0 24px rgba(255, 140, 66, 0.08);
-    --shadow-glow: 0 0 32px rgba(255, 140, 66, 0.2);
+    --shadow-card-hover: 0 16px 48px rgba(0, 0, 0, 0.55);
+    --shadow-glow: none;
 
-    --glow-blue: 0 0 32px rgba(255, 140, 66, 0.2);
-    --glow-cyan: 0 0 32px rgba(68, 212, 200, 0.2);
-    --glow-purple: 0 0 32px rgba(212, 168, 83, 0.2);
-    --glow-pink: 0 0 32px rgba(255, 170, 102, 0.2);
+    --glow-blue: none;
+    --glow-cyan: none;
+    --glow-purple: none;
+    --glow-pink: none;
 
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.25);
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
@@ -139,12 +139,12 @@
     --sidebar-ring: #FF8C42;
 
     /* Dark mode navbar */
-    --navbar-bg: rgba(13, 11, 9, 0.88);
-    --navbar-shadow: 0 8px 40px rgba(0, 0, 0, 0.6), 0 0 60px rgba(255, 140, 66, 0.04);
+    --navbar-bg: rgba(13, 11, 9, 0.92);
+    --navbar-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255, 255, 255, 0.03) inset;
 
     /* Dark mode promise box */
     --promise-bg: rgba(18, 13, 8, 0.85);
-    --promise-glow: 0 0 60px rgba(255, 140, 66, 0.05) inset;
+    --promise-glow: none;
   }
 }
 
@@ -167,7 +167,7 @@
   }
 
   .dark body {
-    background: radial-gradient(ellipse at 50% 0%, #1A1208 0%, #0D0B09 60%);
+    background: #0D0B09;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -203,6 +203,11 @@
     border-color: var(--primary);
   }
 
+  .dark .glass-card:hover {
+    border-color: rgba(255, 140, 66, 0.28);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
+  }
+
   /* Gradient text */
   .gradient-text {
     @apply bg-clip-text text-transparent;
@@ -227,7 +232,7 @@
   }
 
   .dark .noise-overlay {
-    opacity: 0.9;
+    opacity: 0.18;
   }
 
   /* Dark mode navbar glass */
@@ -238,9 +243,7 @@
 
   /* Dark mode hero glow */
   .dark .hero-glow {
-    background: radial-gradient(ellipse, rgba(255,140,66,0.18) 0%, rgba(255,100,30,0.06) 45%, transparent 70%);
-    width: 900px;
-    height: 900px;
+    background: radial-gradient(ellipse, rgba(255,140,66,0.06) 0%, transparent 58%);
   }
 
   /* Dark mode promise box */
