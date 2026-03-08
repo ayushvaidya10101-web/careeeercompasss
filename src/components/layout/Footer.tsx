@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Instagram } from "lucide-react";
+import logoImg from "@/assets/logo.png";
 
 export function Footer() {
   return (
@@ -8,12 +9,7 @@ export function Footer() {
         <div className="flex flex-col items-center gap-4 sm:gap-6 md:flex-row md:justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 font-display text-lg">
-            <svg width="24" height="24" viewBox="0 0 28 28" fill="none">
-              <circle cx="14" cy="14" r="13" stroke="var(--primary)" strokeWidth="1.5" />
-              <path d="M14 3 L15.5 12 L14 11 L12.5 12 Z" fill="var(--primary)" />
-              <path d="M14 25 L15.5 16 L14 17 L12.5 16 Z" fill="var(--foreground)" />
-              <circle cx="14" cy="14" r="2" fill="var(--primary)" />
-            </svg>
+            <img src={logoImg} alt="Career Compass" className="h-6 w-6 rounded-full object-cover" />
             Career Compass
           </Link>
 
